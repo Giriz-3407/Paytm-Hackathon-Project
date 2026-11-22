@@ -1,9 +1,9 @@
-node_modules/
-.next/
-out/
-.env.local
+/node_modules/
+/.next/
+/.npm-cache/
+/test-results/
+/playwright-report/
 *.tsbuildinfo
-test-results/
-playwright-report/
-coverage/
-.npm-cache/
+.env
+.env.*
+!.env.example

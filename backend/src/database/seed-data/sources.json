@@ -1,0 +1,46 @@
+[
+  {
+    "id": "s1",
+    "name": "News discovery",
+    "type": "News discovery",
+    "url": "https://news.google.com",
+    "status": "Healthy",
+    "enabled": true,
+    "frequency": "On demand (POST /ingestion/run) or SERPAPI_POLL_MINUTES",
+    "reports": 0,
+    "error": null
+  },
+  {
+    "id": "s2",
+    "name": "India Meteorological Department",
+    "type": "Weather bulletins",
+    "url": "https://mausam.imd.gov.in",
+    "status": "Offline",
+    "enabled": false,
+    "frequency": "Not scheduled",
+    "reports": 0,
+    "error": "Connector not implemented yet."
+  },
+  {
+    "id": "s3",
+    "name": "NDMA alert bulletin",
+    "type": "Official alerts",
+    "url": "https://ndma.gov.in",
+    "status": "Offline",
+    "enabled": false,
+    "frequency": "Not scheduled",
+    "reports": 0,
+    "error": "Connector not implemented yet."
+  },
+  {
+    "id": "s4",
+    "name": "Historical scenario archive",
+    "type": "Historical datasets",
+    "url": "",
+    "status": "Healthy",
+    "enabled": true,
+    "frequency": "On demand",
+    "reports": 16,
+    "error": null
+  }
+]

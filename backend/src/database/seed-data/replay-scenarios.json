@@ -1,0 +1,344 @@
+[
+  {
+    "id": "mumbai-2005",
+    "title": "Mumbai Floods · July 2005",
+    "description": "A time-aware, illustrative training simulation inspired by a historical flood. All event content and exact times are synthetic.",
+    "location": "Mumbai",
+    "startTime": "2005-07-26T03:30:00.000Z",
+    "endTime": "2005-07-26T08:30:00.000Z",
+    "events": [
+      {
+        "id": "mumbai-2005-1",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T03:40:00.000Z",
+        "eventType": "incident",
+        "payload": {
+          "id": "mumbai-2005-1",
+          "title": "Illustrative flooding observation — Mumbai",
+          "description": "Simulated event for replay training. This record is not an archived article or verified historical claim.",
+          "category": "Flood",
+          "severity": "Medium",
+          "evidenceStatus": "Unverified",
+          "lifecycleStatus": "Active",
+          "location": {
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "district": "Mumbai"
+          },
+          "coordinates": [
+            19.076,
+            72.8777
+          ],
+          "firstDetectedAt": "2005-07-26T03:40:00.000Z",
+          "lastUpdatedAt": "2005-07-26T03:40:00.000Z",
+          "sourceCount": 0,
+          "summary": "An illustrative initial observation in Mumbai. Extent of impact remains uncertain.",
+          "relatedEvidenceIds": [],
+          "mode": "replay"
+        }
+      },
+      {
+        "id": "mumbai-2005-2",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T03:55:00.000Z",
+        "eventType": "evidence",
+        "payload": {
+          "id": "mumbai-2005-e1",
+          "incidentId": "mumbai-2005-1",
+          "relatedIncidentId": "mumbai-2005-1",
+          "sourceId": "training-archive",
+          "title": "Illustrative first field observation",
+          "sourceUrl": null,
+          "publishedAt": "2005-07-26T03:50:00.000Z",
+          "availableAt": "2005-07-26T03:55:00.000Z",
+          "ingestedAt": "2005-07-26T03:55:00.000Z",
+          "content": "Simulated report describes water accumulating in low-lying areas. No confirmed impact figures are available.",
+          "verificationStatus": "Unverified",
+          "category": "Flood",
+          "location": {
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "district": "Mumbai"
+          }
+        }
+      },
+      {
+        "id": "mumbai-2005-3",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T04:20:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "mumbai-2005-1",
+          "severity": "High",
+          "summary": "Additional illustrative observations indicate transport disruption. Assessment escalated using only currently available evidence.",
+          "evidenceStatus": "Developing"
+        }
+      },
+      {
+        "id": "mumbai-2005-4",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T05:00:00.000Z",
+        "eventType": "incident",
+        "payload": {
+          "id": "mumbai-2005-2",
+          "title": "Illustrative flooding observation — Mumbai outskirts",
+          "description": "Simulated event for replay training. This record is not an archived article or verified historical claim.",
+          "category": "Flood",
+          "severity": "Medium",
+          "evidenceStatus": "Unverified",
+          "lifecycleStatus": "Active",
+          "location": {
+            "city": "Mumbai outskirts",
+            "state": "Maharashtra",
+            "district": "Mumbai"
+          },
+          "coordinates": [
+            19.076,
+            72.8777
+          ],
+          "firstDetectedAt": "2005-07-26T05:00:00.000Z",
+          "lastUpdatedAt": "2005-07-26T05:00:00.000Z",
+          "sourceCount": 0,
+          "summary": "An illustrative initial observation in Mumbai outskirts. Extent of impact remains uncertain.",
+          "relatedEvidenceIds": [],
+          "mode": "replay"
+        }
+      },
+      {
+        "id": "mumbai-2005-5",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T05:20:00.000Z",
+        "eventType": "evidence",
+        "payload": {
+          "id": "mumbai-2005-e2",
+          "incidentId": "mumbai-2005-1",
+          "relatedIncidentId": "mumbai-2005-1",
+          "sourceId": "training-archive",
+          "title": "Illustrative corroborating observation",
+          "sourceUrl": null,
+          "publishedAt": "2005-07-26T05:10:00.000Z",
+          "availableAt": "2005-07-26T05:20:00.000Z",
+          "ingestedAt": "2005-07-26T05:20:00.000Z",
+          "content": "A second simulated account describes continued disruption. Independently verified casualty information is unavailable.",
+          "verificationStatus": "Developing",
+          "category": "Flood",
+          "location": {
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "district": "Mumbai"
+          }
+        }
+      },
+      {
+        "id": "mumbai-2005-6",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T06:00:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "mumbai-2005-1",
+          "severity": "Critical",
+          "summary": "Multiple simulated observations now indicate widespread disruption in the training scenario.",
+          "evidenceStatus": "Corroborated"
+        }
+      },
+      {
+        "id": "mumbai-2005-7",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T06:50:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "mumbai-2005-2",
+          "severity": "High",
+          "summary": "Illustrative peripheral disruption grows; local conditions remain uncertain.",
+          "evidenceStatus": "Developing"
+        }
+      },
+      {
+        "id": "mumbai-2005-8",
+        "scenarioId": "mumbai-2005",
+        "availableAt": "2005-07-26T07:40:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "mumbai-2005-1",
+          "severity": "High",
+          "summary": "Simulated reports indicate stabilising conditions. Monitoring continues.",
+          "evidenceStatus": "Corroborated",
+          "lifecycleStatus": "Monitoring"
+        }
+      }
+    ],
+    "dataQualityNotes": "All timestamps, observations, and assessments in this replay are illustrative. No real historical articles, exact publication times, or official findings are represented.",
+    "evaluation": "Training outcome: the initial incident escalated and later stabilised; a second area developed disruption. This synthetic outcome is shown only in Final Evaluation and is excluded from the replay state."
+  },
+  {
+    "id": "kerala-2018",
+    "title": "Kerala Floods · August 2018",
+    "description": "A time-aware, illustrative training simulation inspired by a historical flood. All event content and exact times are synthetic.",
+    "location": "Kochi",
+    "startTime": "2018-08-15T03:30:00.000Z",
+    "endTime": "2018-08-15T08:30:00.000Z",
+    "events": [
+      {
+        "id": "kerala-2018-1",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T03:40:00.000Z",
+        "eventType": "incident",
+        "payload": {
+          "id": "kerala-2018-1",
+          "title": "Illustrative flooding observation — Kochi",
+          "description": "Simulated event for replay training. This record is not an archived article or verified historical claim.",
+          "category": "Flood",
+          "severity": "Medium",
+          "evidenceStatus": "Unverified",
+          "lifecycleStatus": "Active",
+          "location": {
+            "city": "Kochi",
+            "state": "Kerala",
+            "district": "Kochi"
+          },
+          "coordinates": [
+            9.9312,
+            76.2673
+          ],
+          "firstDetectedAt": "2018-08-15T03:40:00.000Z",
+          "lastUpdatedAt": "2018-08-15T03:40:00.000Z",
+          "sourceCount": 0,
+          "summary": "An illustrative initial observation in Kochi. Extent of impact remains uncertain.",
+          "relatedEvidenceIds": [],
+          "mode": "replay"
+        }
+      },
+      {
+        "id": "kerala-2018-2",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T03:55:00.000Z",
+        "eventType": "evidence",
+        "payload": {
+          "id": "kerala-2018-e1",
+          "incidentId": "kerala-2018-1",
+          "relatedIncidentId": "kerala-2018-1",
+          "sourceId": "training-archive",
+          "title": "Illustrative first field observation",
+          "sourceUrl": null,
+          "publishedAt": "2018-08-15T03:50:00.000Z",
+          "availableAt": "2018-08-15T03:55:00.000Z",
+          "ingestedAt": "2018-08-15T03:55:00.000Z",
+          "content": "Simulated report describes water accumulating in low-lying areas. No confirmed impact figures are available.",
+          "verificationStatus": "Unverified",
+          "category": "Flood",
+          "location": {
+            "city": "Kochi",
+            "state": "Kerala",
+            "district": "Kochi"
+          }
+        }
+      },
+      {
+        "id": "kerala-2018-3",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T04:20:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "kerala-2018-1",
+          "severity": "High",
+          "summary": "Additional illustrative observations indicate transport disruption. Assessment escalated using only currently available evidence.",
+          "evidenceStatus": "Developing"
+        }
+      },
+      {
+        "id": "kerala-2018-4",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T05:00:00.000Z",
+        "eventType": "incident",
+        "payload": {
+          "id": "kerala-2018-2",
+          "title": "Illustrative flooding observation — Kochi outskirts",
+          "description": "Simulated event for replay training. This record is not an archived article or verified historical claim.",
+          "category": "Flood",
+          "severity": "Medium",
+          "evidenceStatus": "Unverified",
+          "lifecycleStatus": "Active",
+          "location": {
+            "city": "Kochi outskirts",
+            "state": "Kerala",
+            "district": "Kochi"
+          },
+          "coordinates": [
+            9.9312,
+            76.2673
+          ],
+          "firstDetectedAt": "2018-08-15T05:00:00.000Z",
+          "lastUpdatedAt": "2018-08-15T05:00:00.000Z",
+          "sourceCount": 0,
+          "summary": "An illustrative initial observation in Kochi outskirts. Extent of impact remains uncertain.",
+          "relatedEvidenceIds": [],
+          "mode": "replay"
+        }
+      },
+      {
+        "id": "kerala-2018-5",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T05:20:00.000Z",
+        "eventType": "evidence",
+        "payload": {
+          "id": "kerala-2018-e2",
+          "incidentId": "kerala-2018-1",
+          "relatedIncidentId": "kerala-2018-1",
+          "sourceId": "training-archive",
+          "title": "Illustrative corroborating observation",
+          "sourceUrl": null,
+          "publishedAt": "2018-08-15T05:10:00.000Z",
+          "availableAt": "2018-08-15T05:20:00.000Z",
+          "ingestedAt": "2018-08-15T05:20:00.000Z",
+          "content": "A second simulated account describes continued disruption. Independently verified casualty information is unavailable.",
+          "verificationStatus": "Developing",
+          "category": "Flood",
+          "location": {
+            "city": "Kochi",
+            "state": "Kerala",
+            "district": "Kochi"
+          }
+        }
+      },
+      {
+        "id": "kerala-2018-6",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T06:00:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "kerala-2018-1",
+          "severity": "Critical",
+          "summary": "Multiple simulated observations now indicate widespread disruption in the training scenario.",
+          "evidenceStatus": "Corroborated"
+        }
+      },
+      {
+        "id": "kerala-2018-7",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T06:50:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "kerala-2018-2",
+          "severity": "High",
+          "summary": "Illustrative peripheral disruption grows; local conditions remain uncertain.",
+          "evidenceStatus": "Developing"
+        }
+      },
+      {
+        "id": "kerala-2018-8",
+        "scenarioId": "kerala-2018",
+        "availableAt": "2018-08-15T07:40:00.000Z",
+        "eventType": "update",
+        "payload": {
+          "incidentId": "kerala-2018-1",
+          "severity": "High",
+          "summary": "Simulated reports indicate stabilising conditions. Monitoring continues.",
+          "evidenceStatus": "Corroborated",
+          "lifecycleStatus": "Monitoring"
+        }
+      }
+    ],
+    "dataQualityNotes": "All timestamps, observations, and assessments in this replay are illustrative. No real historical articles, exact publication times, or official findings are represented.",
+    "evaluation": "Training outcome: the initial incident escalated and later stabilised; a second area developed disruption. This synthetic outcome is shown only in Final Evaluation and is excluded from the replay state."
+  }
+]

@@ -1,0 +1,181 @@
+// Crisis Lens data model.
+// Enum values intentionally match the strings used by frontend/src/types/domain.ts
+// so API payloads need no translation layer.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Declaration order matters: PostgreSQL sorts enums by it, so ordering by
+// `severity asc` yields Critical first.
+enum Severity {
+  Critical
+  High
+  Medium
+  Low
+  Unknown
+}
+
+enum EvidenceStatus {
+  Corroborated
+  Developing
+  Unverified
+}
+
+enum LifecycleStatus {
+  Active
+  Monitoring
+  Resolved
+}
+
+enum DataMode {
+  demo // fictional seed data
+  replay // historical replay content
+  live // discovered from real news via the ingestion pipeline
+}
+
+enum SourceStatus {
+  Healthy
+  Delayed
+  Offline
+}
+
+enum ReplayEventType {
+  incident
+  update
+  evidence
+}
+
+enum UserRole {
+  ADMIN
+  ANALYST
+  VIEWER
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         UserRole @default(VIEWER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Source {
+  id          String       @id
+  name        String
+  type        String // 'News discovery' | 'Official alerts' | 'Weather bulletins' | 'Historical datasets'
+  url         String
+  status      SourceStatus @default(Healthy)
+  enabled     Boolean      @default(true)
+  frequency   String
+  reports     Int          @default(0)
+  error       String?
+  lastSync    DateTime
+  lastAttempt DateTime
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  evidence Evidence[]
+}
+
+model Incident {
+  id              String          @id
+  title           String
+  description     String
+  category        String
+  severity        Severity        @default(Unknown)
+  evidenceStatus  EvidenceStatus  @default(Unverified)
+  lifecycleStatus LifecycleStatus @default(Active)
+  city            String
+  state           String
+  district        String
+  latitude        Float
+  longitude       Float
+  firstDetectedAt DateTime
+  lastUpdatedAt   DateTime
+  summary         String
+  mode            DataMode        @default(demo)
+  createdAt       DateTime        @default(now())
+
+  evidence Evidence[]
+  reports  Report[]
+
+  @@index([mode, lifecycleStatus, lastUpdatedAt])
+  @@index([firstDetectedAt])
+  @@index([state, district])
+  @@index([category])
+  @@index([severity])
+}
+
+model Evidence {
+  id                 String         @id
+  incidentId         String
+  sourceId           String
+  title              String
+  sourceUrl          String?
+  publishedAt        DateTime
+  availableAt        DateTime
+  ingestedAt         DateTime
+  content            String
+  verificationStatus EvidenceStatus @default(Unverified)
+
+  incident Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  source   Source   @relation(fields: [sourceId], references: [id])
+
+  // Re-ingesting the same URL for the same incident must not create a duplicate.
+  // (NULL urls are distinct in PostgreSQL, so url-less demo evidence is unaffected.)
+  @@unique([incidentId, sourceUrl])
+  @@index([incidentId, availableAt])
+  @@index([sourceId])
+}
+
+model Report {
+  id          String   @id
+  incidentId  String
+  title       String
+  generatedAt DateTime
+  mode        DataMode @default(demo)
+  summary     String
+  findings    String[]
+  limitations String[]
+  sources     String[] // evidence ids the report cites
+
+  incident Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+
+  @@index([incidentId])
+  @@index([generatedAt])
+}
+
+model ReplayScenario {
+  id              String   @id
+  title           String
+  description     String
+  location        String
+  startTime       DateTime
+  endTime         DateTime
+  dataQualityNotes String
+  evaluation      String
+
+  events ReplayEvent[]
+}
+
+// Replay events are stored separately from live incidents, so replay content
+// can never leak into the live incident list.
+model ReplayEvent {
+  id          String          @id
+  scenarioId  String
+  availableAt DateTime
+  eventType   ReplayEventType
+  payload     Json
+
+  scenario ReplayScenario @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+
+  @@index([scenarioId, availableAt])
+}
