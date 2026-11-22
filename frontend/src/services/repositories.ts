@@ -15,18 +15,34 @@ const demo = async <T>(data: T): Promise<T> => {
   await new Promise((r) => setTimeout(r, 250));
   return structuredClone(data);
 };
+class ApiError extends Error {
+  constructor(public status: number) {
+    super(`Request failed (${status}). Check the API connection.`);
+  }
+}
+/** Backend responses are wrapped as `{ success, message, data, meta }`; callers get `data`. */
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || '/api'}${path}`, init);
-  if (!response.ok)
-    throw new Error(`Request failed (${response.status}). Check the API connection.`);
-  return response.json() as Promise<T>;
+  if (!response.ok) throw new ApiError(response.status);
+  return ((await response.json()) as { data: T }).data;
 }
+/** The repository contracts return `null` for a missing record; the API answers 404. */
+async function requestOrNull<T>(path: string, init?: RequestInit): Promise<T | null> {
+  try {
+    return await request<T>(path, init);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+}
+// The UI filters client-side, so ask for the largest page the API allows.
+const ALL = 'pageSize=200';
 export const dataMode = process.env.NEXT_PUBLIC_DATA_MODE === 'api' ? 'api' : 'mock';
 export const incidentsRepository: IncidentRepository =
   dataMode === 'api'
     ? {
-        list: async (f) => filterIncidents(await request<Incident[]>('/incidents'), f),
-        getById: (id) => request(`/incidents/${encodeURIComponent(id)}`),
+        list: async (f) => filterIncidents(await request<Incident[]>(`/incidents?${ALL}`), f),
+        getById: (id) => requestOrNull(`/incidents/${encodeURIComponent(id)}`),
         evidence: (id) => request(`/incidents/${encodeURIComponent(id)}/evidence`),
       }
     : {
@@ -38,7 +54,7 @@ export const replayRepository: ReplayRepository =
   dataMode === 'api'
     ? {
         listScenarios: () => request('/replay/scenarios'),
-        getScenario: (id) => request(`/replay/scenarios/${encodeURIComponent(id)}`),
+        getScenario: (id) => requestOrNull(`/replay/scenarios/${encodeURIComponent(id)}`),
       }
     : {
         listScenarios: () => demo(replayScenarios),
@@ -52,7 +68,7 @@ export const sourcesRepository = {
       : demo(mockSources.map((s) => ({ ...s, enabled: sourceOverrides.get(s.id) ?? s.enabled }))),
   setEnabled: (id: string, enabled: boolean): Promise<Source | null> => {
     if (dataMode === 'api')
-      return request(`/sources/${encodeURIComponent(id)}`, {
+      return requestOrNull(`/sources/${encodeURIComponent(id)}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ enabled }),

@@ -7,3 +7,6 @@ test-results/
 playwright-report/
 coverage/
 .npm-cache/
+
+# local env overrides (never commit)
+.env*.local
