@@ -12,7 +12,7 @@ export type Category = (typeof categories)[number];
 export const severities = ['Critical', 'High', 'Medium', 'Low', 'Unknown'] as const;
 export type Severity = (typeof severities)[number];
 export type EvidenceStatus = 'Corroborated' | 'Developing' | 'Unverified';
-export type Mode = 'demo' | 'replay';
+export type Mode = 'demo' | 'replay' | 'live';
 export interface Incident {
   id: string;
   title: string;

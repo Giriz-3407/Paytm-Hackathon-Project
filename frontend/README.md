@@ -67,7 +67,7 @@ Routes compose feature components. Features share contracts and repository hooks
 
 `NEXT_PUBLIC_DATA_MODE=mock` is the default. Set it to `api`, configure `NEXT_PUBLIC_API_URL`, and optionally set `NEXT_PUBLIC_SOCKET_URL` to use an actual backend. Public environment variables are bundled at build time; rebuild after changing them. Never put secrets in `NEXT_PUBLIC_*` variables.
 
-The API adapter expects JSON with the shapes in `src/types/domain.ts`:
+The bundled backend lives in [`../backend`](../backend/README.md); use `NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1`. Responses arrive wrapped as `{ success, message, data, meta }` and the adapter unwraps `data`; a `404` becomes `null` for single-record lookups. The `data` payloads use the shapes in `src/types/domain.ts`:
 
 | Method | Endpoint                  | Response                             |
 | ------ | ------------------------- | ------------------------------------ |

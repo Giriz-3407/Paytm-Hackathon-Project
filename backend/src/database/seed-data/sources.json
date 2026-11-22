@@ -1,0 +1,54 @@
+[
+  {
+    "id": "s1",
+    "name": "News discovery",
+    "type": "News discovery",
+    "url": "https://news.google.com",
+    "status": "Healthy",
+    "enabled": true,
+    "frequency": "Every 5 minutes",
+    "reports": 1248,
+    "error": null,
+    "lastSync": "2026-11-22T06:25:00Z",
+    "lastAttempt": "2026-11-22T06:29:00Z"
+  },
+  {
+    "id": "s2",
+    "name": "India Meteorological Department",
+    "type": "Weather bulletins",
+    "url": "https://mausam.imd.gov.in",
+    "status": "Healthy",
+    "enabled": true,
+    "frequency": "Every 15 minutes",
+    "reports": 342,
+    "error": null,
+    "lastSync": "2026-11-22T06:25:00Z",
+    "lastAttempt": "2026-11-22T06:29:00Z"
+  },
+  {
+    "id": "s3",
+    "name": "NDMA alert bulletin",
+    "type": "Official alerts",
+    "url": "https://ndma.gov.in",
+    "status": "Delayed",
+    "enabled": true,
+    "frequency": "Every 10 minutes",
+    "reports": 186,
+    "error": "Simulated timeout on the last ingestion attempt.",
+    "lastSync": "2026-11-22T06:25:00Z",
+    "lastAttempt": "2026-11-22T06:29:00Z"
+  },
+  {
+    "id": "s4",
+    "name": "Historical scenario archive",
+    "type": "Historical datasets",
+    "url": "",
+    "status": "Healthy",
+    "enabled": true,
+    "frequency": "On demand",
+    "reports": 16,
+    "error": null,
+    "lastSync": "2026-11-22T06:25:00Z",
+    "lastAttempt": "2026-11-22T06:29:00Z"
+  }
+]
