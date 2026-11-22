@@ -39,6 +39,11 @@ npm run dev                      # http://localhost:5000, auto-reload
 
 Check it: `curl http://localhost:5000/api/v1/health`
 
+To run without the file watcher, use `npm start`. It first compiles TypeScript through
+the `prestart` script, then runs `dist/server.js`. Install dependencies with `npm install`
+first; the compiler is a development dependency. For auto-reloading development, use
+`npm run dev` instead.
+
 ### Connect the frontend
 
 In `frontend/.env.local`:
@@ -73,7 +78,7 @@ page stops collection (`409`). Identical queries are cached for 10 minutes to pr
 | ------------------------- | ----------------------------------------------- |
 | `npm run dev`             | Run with `tsx watch`                            |
 | `npm run build`           | Compile to `dist/`                              |
-| `npm start`               | Run compiled output (`node dist/server.js`)     |
+| `npm start`               | Compile TypeScript, then run `dist/server.js`   |
 | `npm test`                | Vitest unit + integration tests (no DB needed)  |
 | `npm run typecheck`       | `tsc --noEmit`                                  |
 | `npm run lint`            | ESLint                                          |
