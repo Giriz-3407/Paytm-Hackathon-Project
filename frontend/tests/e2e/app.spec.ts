@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test('sidebar opens from the menu or rail and closes on dashboard interaction', async ({
   page,

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { mockIncidents, DEMO_NOW } from '@/data/mock-data';
+import { mockIncidents, DEMO_NOW } from '../fixtures/mock-data';
 import { filterIncidents, rangeStart, severityRank } from '@/features/incidents/filter';
 describe('incident queries', () => {
   it('searches location and ID case insensitively and composes filters', () => {

@@ -108,3 +108,14 @@ export interface IncidentFilters {
   sort?: 'newest' | 'severity' | 'updated';
   sourceId?: string;
 }
+/** One OpenStreetMap (Nominatim) place match returned by the backend geocoder. */
+export interface GeocodeResult {
+  displayName: string;
+  lat: number;
+  lng: number;
+  /** [south, west, north, east] */
+  boundingBox: [number, number, number, number] | null;
+  category: string;
+  type: string;
+  importance: number;
+}

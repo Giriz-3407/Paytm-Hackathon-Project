@@ -141,7 +141,7 @@ describe('ingestionService.run', () => {
       lifecycleStatus: 'Monitoring',
       location: { state: 'Assam' },
     });
-    expect(options).toEqual({ mode: 'live', idPrefix: 'LV' });
+    expect(options).toEqual({ idPrefix: 'LV' });
     expect(evidenceService.addToIncident).toHaveBeenCalledWith(
       'LV-1',
       expect.objectContaining({ sourceUrl: 'https://news.example/a', verificationStatus: 'Unverified' }),

@@ -13,8 +13,6 @@ import { toIncidentDto, type IncidentDto } from './incidents.types';
 const newIncidentId = (prefix: string) => `${prefix}-${randomBytes(4).toString('hex').toUpperCase()}`;
 
 interface CreateOptions {
-  /** Defaults to `live`: incidents entered by an analyst or found by ingestion are real records. */
-  mode?: 'demo' | 'live';
   idPrefix?: string;
 }
 
@@ -48,7 +46,7 @@ export const incidentsService = {
       summary: input.summary,
       firstDetectedAt: input.firstDetectedAt ? new Date(input.firstDetectedAt) : now,
       lastUpdatedAt: now,
-      mode: options.mode ?? 'live',
+      mode: 'live',
     });
     const dto = toIncidentDto(row);
     realtime.incidentCreated(dto);

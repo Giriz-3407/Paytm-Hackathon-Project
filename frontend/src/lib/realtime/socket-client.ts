@@ -7,9 +7,10 @@ export interface ServerEvents {
   'evidence:added': (evidence: Evidence) => void;
   'source:health': (source: Source) => void;
 }
-/** No socket connection is opened in demo mode. Consumer owns subscribe/unsubscribe. */
-export function createRealtimeClient(): Socket<ServerEvents> | null {
-  return process.env.NEXT_PUBLIC_DATA_MODE === 'api' && process.env.NEXT_PUBLIC_SOCKET_URL
-    ? io(process.env.NEXT_PUBLIC_SOCKET_URL, { autoConnect: false, reconnection: true })
-    : null;
+/** Connects to the backend's Socket.IO server. Consumer owns subscribe/unsubscribe. */
+export function createRealtimeClient(): Socket<ServerEvents> {
+  return io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000', {
+    autoConnect: false,
+    reconnection: true,
+  });
 }

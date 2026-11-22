@@ -1,0 +1,102 @@
+.box {
+  position: absolute;
+  top: 56px;
+  right: 13px;
+  width: min(320px, calc(100% - 26px));
+  z-index: 900;
+}
+.form {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #14233826;
+  padding: 3px 4px 3px 10px;
+}
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 0;
+}
+.input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.iconButton:hover:not(:disabled) {
+  background: var(--surface-alt);
+}
+.iconButton:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+.note {
+  margin: 4px 0 0;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.results {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 3px;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px #14233830;
+}
+.results button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12.5px;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.results button:hover,
+.results button:focus-visible {
+  background: var(--surface-alt);
+}
+.pin {
+  background: transparent;
+}
+.pin span {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #fff;
+  box-shadow:
+    0 0 0 2px #2563eb,
+    0 2px 6px #14233860;
+}

@@ -5,13 +5,12 @@ import { create } from 'zustand';
 import { createRealtimeClient } from './socket-client';
 import { Incident, Source, Evidence } from '@/types/domain';
 export const useConnection = create<{
-  status: 'Demo mode' | 'Connected' | 'Reconnecting' | 'Disconnected';
-}>(() => ({ status: process.env.NEXT_PUBLIC_DATA_MODE === 'api' ? 'Disconnected' : 'Demo mode' }));
+  status: 'Connected' | 'Reconnecting' | 'Disconnected';
+}>(() => ({ status: 'Disconnected' }));
 export function useRealtime() {
   const query = useQueryClient();
   useEffect(() => {
     const socket = createRealtimeClient();
-    if (!socket) return;
     const upsert = (i: Incident) =>
       query.setQueryData<Incident[]>(['incidents'], (old) =>
         old

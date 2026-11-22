@@ -36,6 +36,10 @@ const envSchema = z
     SERPAPI_API_KEY: optionalString,
     SERPAPI_POLL_MINUTES: z.coerce.number().int().min(0).max(1440).default(0),
 
+    NOMINATIM_BASE_URL: z.url().default('https://nominatim.openstreetmap.org'),
+    // Nominatim requires an identifying User-Agent. Keep it generic; do not put personal contact data here.
+    NOMINATIM_USER_AGENT: z.string().min(5).default('CrisisLens/1.0 (crisis-intelligence hackathon project)'),
+
     ALLOW_ANONYMOUS_SOURCE_TOGGLE: booleanString.default(false),
 
     SEED_ADMIN_EMAIL: optionalString,

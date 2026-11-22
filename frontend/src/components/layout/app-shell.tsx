@@ -28,7 +28,6 @@ import { Button, Dialog, Input } from '@/components/ui/primitives';
 import { useUI } from '@/stores/ui-store';
 import { useIncidents } from '@/services/hooks';
 import { cn } from '@/lib/utils';
-import { dataMode } from '@/services/repositories';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 const nav = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
@@ -146,8 +145,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="system-status">
           <span className="status-dot" />
           <span>
-            {dataMode === 'mock' ? 'Demo environment' : 'API environment'}
-            <small>{dataMode === 'mock' ? 'Illustrative data only' : 'Backend configured'}</small>
+            Live environment
+            <small>Live news via SerpApi</small>
           </span>
           <Shield size={16} />
         </div>
@@ -264,8 +263,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Shield size={12} /> Situational awareness. Follow official emergency guidance.
           </span>
           <span>
-            Crisis Lens <span className="footer-version">v1.0</span> ·{' '}
-            {dataMode === 'mock' ? 'Demo workspace' : 'API workspace'}
+            Crisis Lens <span className="footer-version">v1.0</span> · Live workspace
           </span>
         </footer>
       </div>

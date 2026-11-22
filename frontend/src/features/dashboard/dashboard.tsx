@@ -26,7 +26,6 @@ import { SeverityChart, CategoryChart } from './charts';
 import { CompactIncident } from '@/components/shared/incidents';
 import { LoadingState, ErrorState, EmptyState } from '@/components/shared/feedback';
 import { filterIncidents, rangeStart } from '@/features/incidents/filter';
-import { DEMO_NOW } from '@/data/mock-data';
 import { downloadCsv } from '@/lib/utils';
 import { toast } from 'sonner';
 export function Dashboard() {
@@ -36,13 +35,13 @@ export function Dashboard() {
   const [from, setFrom] = useState('2026-11-01');
   const [to, setTo] = useState('2026-11-22');
   // In API mode the window is anchored to the real current time instead of the fixed demo snapshot.
-  const [nowIso] = useState(() => (LIVE ? new Date().toISOString() : DEMO_NOW));
+  const [nowIso] = useState(() => new Date().toISOString());
   const [severity, setSeverity] = useState('');
   const [mapTab, setMapTab] = useState('all');
   const [ack, setAck] = useState<string[]>([]);
   const data = filterIncidents(query.data || [], {
     from: range === 'custom' ? `${from}T00:00:00+05:30` : rangeStart(Number(range), nowIso),
-    to: range === 'custom' ? `${to}T23:59:59+05:30` : LIVE ? undefined : DEMO_NOW,
+    to: range === 'custom' ? `${to}T23:59:59+05:30` : undefined,
   });
   const active = data.filter((i) => i.lifecycleStatus !== 'Resolved');
   const critical = data.filter((i) => i.severity === 'Critical');

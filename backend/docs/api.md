@@ -377,6 +377,38 @@ the **headline only** (state-only matches are labelled "(state-level)"); reports
 of the same category and state from the last 72 hours. Created incidents are `mode: "live"`, id `LV-XXXXXXXX`,
 severity `Unknown`. `errors` never contains internal details.
 
+## Geocoding (OpenStreetMap)
+
+### `GET /geocode/search?q=Bhubaneswar&limit=5`
+
+Place search through OpenStreetMap's Nominatim, restricted to India. Public (the map uses it), limited to 30
+requests per minute per IP. `q` is 2–100 characters, `limit` 1–10 (default 5).
+
+```json
+{
+  "success": true,
+  "message": "Places found",
+  "data": [
+    {
+      "displayName": "Bhubaneswar (M.Corp.), Khordha, Odisha, India",
+      "lat": 20.2810577,
+      "lng": 85.8114026,
+      "boundingBox": [20.1897532, 85.7540845, 20.3724291, 85.9023571],
+      "category": "boundary",
+      "type": "administrative",
+      "importance": 0.24
+    }
+  ],
+  "meta": null
+}
+```
+
+`boundingBox` is `[south, west, north, east]`, ready for Leaflet's `fitBounds`. An unknown place returns
+`200` with an empty list. The backend follows Nominatim's usage policy: at most one upstream request per
+second (queued), an identifying `User-Agent` (`NOMINATIM_USER_AGENT`), 24-hour caching, and no search-as-you-type
+(the UI searches on submit). `503`/`502` if the geocoder is busy or unreachable. Set `NOMINATIM_BASE_URL` to
+point at a self-hosted instance for heavy use.
+
 ## Realtime (Socket.IO)
 
 Connect to the server origin (not `/api/v1`). CORS follows `FRONTEND_URL`. Events are broadcast to all

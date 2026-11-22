@@ -153,7 +153,7 @@ export const ingestionService = {
                 summary: (item.snippet ?? item.title).slice(0, 2000),
                 firstDetectedAt: publishedAt.toISOString(),
               },
-              { mode: 'live', idPrefix: 'LV' },
+              { idPrefix: 'LV' },
             );
             incidentId = created.id;
             status = created.evidenceStatus;

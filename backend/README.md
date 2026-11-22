@@ -118,7 +118,7 @@ repositories are the only code that touches Prisma.
   `coordinates: [lat, lng]`, ISO strings). Prisma enum values equal the frontend's strings, so there is no
   translation layer. `sourceCount` / `relatedEvidenceIds` are derived from the evidence table, never stored.
 - **Replay is isolated from live data.** Replay events live in their own tables, and `/incidents` only reads
-  `mode` demo/live. `GET /replay/scenarios/:id?asOf=` filters future events inside the query.
+  `mode = live`; the API never serves demo data. `GET /replay/scenarios/:id?asOf=` filters future events inside the query.
 - **Evidence ingestion is idempotent.** `@@unique([incidentId, sourceUrl])` turns re-ingestion into a `409`
   instead of a duplicate; counters update in one transaction.
 - **Auth is small on purpose.** Self-registration creates read-only `VIEWER`s; `ADMIN`/`ANALYST` can write.

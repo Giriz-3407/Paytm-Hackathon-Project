@@ -2,7 +2,7 @@
 
 A complete Next.js frontend for crisis situational awareness across India, with a map, incident investigation, source management, and an interactive historical replay engine.
 
-**This is a demo, not an emergency warning system.** All 18 monitoring incidents, their evidence, source health, and dashboard charts are illustrative. The snapshot is fixed at **22 November 2026, 12:00 IST**. Historical scenario names provide context; their event content and precise timestamps are synthetic. No live ingestion or AI model is connected.
+**This is decision-support software, not an official emergency warning system.** The app contains no bundled demo data: every incident, evidence link and source status comes from the backend (`../backend`), which discovers real news through SerpApi. Incidents are unverified unless marked otherwise, and severity stays `Unknown` until an analyst or an official source supports it. The two historical replay scenarios are synthetic training content and are labelled as such.
 
 ## Setup
 
@@ -53,9 +53,9 @@ src/components/ui/       Accessible, reusable Radix/shadcn-style primitives
 src/components/shared/   Filters, incident cards/badges, headers and feedback states
 src/features/            Dashboard, incidents, map, replay, sources, settings, help
 src/features/replay/engine/  Pure clock and deterministic event reconstruction
-src/services/            Repository contracts, mock/API adapters, TanStack Query hooks
+src/services/            Repository contracts, backend API client, TanStack Query hooks
 src/types/               Shared domain contracts and discriminated replay event union
-src/data/                Deterministic demo records and synthetic scenario definitions
+src/data/                Bundled public-domain map outlines (offline map fallback)
 src/lib/realtime/        Typed Socket.IO adapter and query-cache subscriptions
 src/stores/              Persisted UI preferences
 tests/                   Unit, component and essential browser tests
@@ -65,7 +65,7 @@ Routes compose feature components. Features share contracts and repository hooks
 
 ## Environment and backend integration
 
-`NEXT_PUBLIC_DATA_MODE=mock` is the default. Set it to `api`, configure `NEXT_PUBLIC_API_URL`, and optionally set `NEXT_PUBLIC_SOCKET_URL` to use an actual backend. Public environment variables are bundled at build time; rebuild after changing them. Never put secrets in `NEXT_PUBLIC_*` variables.
+The app always talks to the backend. `NEXT_PUBLIC_API_URL` (default `http://localhost:5000/api/v1`) and `NEXT_PUBLIC_SOCKET_URL` (default `http://localhost:5000`) can be overridden; see `.env.example`. Public environment variables are bundled at build time, so rebuild after changing them. Never put secrets in `NEXT_PUBLIC_*` variables.
 
 The bundled backend lives in [`../backend`](../backend/README.md); use `NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1`. Responses arrive wrapped as `{ success, message, data, meta }` and the adapter unwraps `data`; a `404` becomes `null` for single-record lookups. The `data` payloads use the shapes in `src/types/domain.ts`:
 

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { VirtualClock } from '@/features/replay/engine/clock';
 import { reconstruct } from '@/features/replay/engine/reconstruct';
-import { replayScenarios } from '@/data/replay-scenarios';
+import { replayScenarios } from '../fixtures/replay-scenarios';
 describe('virtual clock', () => {
   it('uses actual elapsed time despite irregular render intervals', () => {
     let real = 0;

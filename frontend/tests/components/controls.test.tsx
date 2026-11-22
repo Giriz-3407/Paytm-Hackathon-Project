@@ -5,7 +5,7 @@ import { IncidentCard, SeverityBadge } from '@/components/shared/incidents';
 import { FilterBar } from '@/components/shared/filter-bar';
 import { IncidentTable } from '@/features/incidents/incident-table';
 import { ReplayControls } from '@/features/replay/replay-page';
-import { mockIncidents } from '@/data/mock-data';
+import { mockIncidents } from '../fixtures/mock-data';
 describe('domain components', () => {
   it('communicates severity with text, not color alone', () => {
     render(<SeverityBadge severity="Critical" />);

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test('exports filtered CSV and opens incident history', async ({ page }) => {
   await page.goto('/incidents');
@@ -35,7 +35,7 @@ test('source toggles update dashboard metrics and survive simulated refresh', as
   await expect(
     page
       .locator('.metric-card')
-      .filter({ hasText: 'Demo sources enabled' })
+      .filter({ hasText: 'Sources enabled' })
       .locator('.metric-value strong'),
   ).toHaveText('03');
 });

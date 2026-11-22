@@ -1,18 +1,17 @@
-import type { DataMode, Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 import { prisma } from '../../database/client';
 import { toSkipTake } from '../../utils/pagination';
 import type { ListIncidentsQuery } from './incidents.schemas';
 import type { IncidentRow } from './incidents.types';
 
-// Replay content lives in its own tables; the incident list shows fictional demo data and live news.
-const VISIBLE_MODES: DataMode[] = ['demo', 'live'];
+// The incident list serves live data only. Replay content lives in its own tables.
 
 const include = {
   evidence: { select: { id: true }, orderBy: [{ availableAt: 'asc' }, { id: 'asc' }] },
 } satisfies Prisma.IncidentInclude;
 
 function buildWhere(q: ListIncidentsQuery): Prisma.IncidentWhereInput {
-  const and: Prisma.IncidentWhereInput[] = [{ mode: q.mode ?? { in: VISIBLE_MODES } }];
+  const and: Prisma.IncidentWhereInput[] = [{ mode: 'live' }];
   if (q.search) {
     const contains = { contains: q.search, mode: 'insensitive' as const };
     and.push({ OR: [{ title: contains }, { id: contains }, { city: contains }, { state: contains }] });
@@ -63,7 +62,7 @@ export const incidentsRepository = {
   },
 
   findById(id: string): Promise<IncidentRow | null> {
-    return prisma.incident.findFirst({ where: { id, mode: { in: VISIBLE_MODES } }, include });
+    return prisma.incident.findFirst({ where: { id, mode: 'live' }, include });
   },
 
   /**

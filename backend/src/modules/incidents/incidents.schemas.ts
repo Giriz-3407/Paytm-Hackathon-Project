@@ -31,7 +31,6 @@ export const listIncidentsQuery = paginationQuery.extend({
   sourceId: z.string().trim().max(64).optional(),
   from: isoDate.optional(),
   to: isoDate.optional(),
-  mode: z.enum(['demo', 'live']).optional(),
   sort: z.enum(['newest', 'severity', 'updated']).default('newest'),
 });
 

@@ -43,10 +43,7 @@ export const useIncidents = () => {
     useQuery({
       queryKey: ['incidents'],
       queryFn: () => incidentsRepository.list(),
-      refetchInterval:
-        process.env.NEXT_PUBLIC_DATA_MODE === 'api' && refresh !== 'manual'
-          ? Number(refresh) * 1000
-          : false,
+      refetchInterval: refresh !== 'manual' ? Number(refresh) * 1000 : false,
     }),
     hydrated,
   );
