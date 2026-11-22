@@ -42,6 +42,7 @@ test('source toggles update dashboard metrics and survive simulated refresh', as
 
 test('saved monitoring defaults filter incidents', async ({ page }) => {
   await page.goto('/settings');
+  await page.getByRole('button', { name: 'Open sidebar', exact: true }).click();
   await page.getByRole('button', { name: 'Workspace menu' }).click();
   await page.getByRole('menuitem', { name: 'Workspace preferences' }).click();
   await page.getByRole('tab', { name: 'Monitoring Preferences' }).click();

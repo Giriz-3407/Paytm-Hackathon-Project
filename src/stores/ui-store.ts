@@ -21,7 +21,7 @@ export const useUI = create<Preferences & { set: (value: Partial<Preferences>) =
   persist(
     (set) => ({
       theme: 'light',
-      collapsed: false,
+      collapsed: true,
       timezone: 'Asia/Kolkata',
       defaultView: '/dashboard',
       dateFormat: 'dd MMM yyyy',
@@ -37,11 +37,12 @@ export const useUI = create<Preferences & { set: (value: Partial<Preferences>) =
     }),
     {
       name: 'crisis-lens-preferences',
-      version: 1,
+      version: 2,
       migrate: (stored) => {
         const prefs = (stored && typeof stored === 'object' ? stored : {}) as Partial<Preferences>;
         return {
           ...prefs,
+          collapsed: true,
           defaultView: defaultViews.some((view) => view === prefs.defaultView)
             ? prefs.defaultView
             : '/dashboard',

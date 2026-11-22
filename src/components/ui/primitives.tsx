@@ -60,6 +60,7 @@ export function Dialog({
   description,
   children,
   drawer = false,
+  onCloseAutoFocus,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
@@ -67,12 +68,16 @@ export function Dialog({
   description?: string;
   children: React.ReactNode;
   drawer?: boolean;
+  onCloseAutoFocus?: React.ComponentProps<typeof DialogPrimitive.Content>['onCloseAutoFocus'];
 }) {
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="dialog-overlay" />
-        <DialogPrimitive.Content className={cn('dialog-content', drawer && 'navigation-drawer')}>
+        <DialogPrimitive.Content
+          className={cn('dialog-content', drawer && 'navigation-drawer')}
+          onCloseAutoFocus={onCloseAutoFocus}
+        >
           <div className="dialog-heading">
             <div>
               <DialogPrimitive.Title>{title}</DialogPrimitive.Title>

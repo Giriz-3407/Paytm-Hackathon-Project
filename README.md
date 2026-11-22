@@ -25,7 +25,7 @@ npm start
 npm run test:e2e
 ```
 
-The Playwright configuration uses locally installed Google Chrome (`channel: 'chrome'`). To use bundled Chromium instead, remove that setting and run `npx playwright install chromium`. Tests start the production server automatically when one is not already running, so run `npm run build` first. The production server is reused when available.
+The Playwright configuration uses locally installed Google Chrome (`channel: 'chrome'`). To use bundled Chromium instead, remove that setting and run `npx playwright install chromium`. Tests use a separate production server on port 3100 so they do not interfere with the development preview on port 3000. They start this server automatically when needed, so run `npm run build` first.
 
 ## Stack
 
@@ -62,6 +62,8 @@ tests/                   Unit, component and essential browser tests
 ```
 
 Routes compose feature components. Features share contracts and repository hooks rather than importing incident arrays directly. Repository interfaces and adapters are intentionally colocated in one small module until backend complexity warrants splitting them.
+
+Navigation uses a stable desktop icon rail. The full menu opens over the workspace and closes after selection, an outside click, or Escape without shifting page content. The mobile drawer shares the same navigation configuration and returns keyboard focus to its menu button when closed. `src/app/theme.css` owns semantic light/dark color tokens; `src/app/workspace.css` owns shared layout, spacing, and restrained transitions.
 
 ## Environment and backend integration
 

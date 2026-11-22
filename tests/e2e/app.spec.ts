@@ -1,23 +1,48 @@
 import { test, expect } from '@playwright/test';
 
-test('sidebar opens from the menu or rail and closes on dashboard interaction', async ({
+test('navigation opens, closes, and changes routes without shifting the workspace', async ({
   page,
 }) => {
   await page.goto('/dashboard');
   await expect(page.getByRole('heading', { name: 'Crisis overview', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Close sidebar', exact: true }).click();
   await expect(page.locator('.app-shell')).toHaveClass(/sidebar-collapsed/);
+  const before = await page.locator('.app-body').boundingBox();
   await page.getByRole('button', { name: 'Open sidebar', exact: true }).click();
   await expect(page.locator('.app-shell')).not.toHaveClass(/sidebar-collapsed/);
-  await page.getByRole('heading', { name: 'Crisis overview', exact: true }).click();
+  expect((await page.locator('.app-body').boundingBox())?.x).toBe(before?.x);
+  await page.screenshot({
+    path: 'test-results/navigation-desktop.png',
+    fullPage: false,
+    animations: 'disabled',
+  });
+  await page.getByRole('button', { name: 'Refresh data', exact: true }).click();
   await expect(page.locator('.app-shell')).toHaveClass(/sidebar-collapsed/);
+  expect((await page.locator('.app-body').boundingBox())?.x).toBe(before?.x);
   await page.locator('.sidebar').click({ position: { x: 68, y: 200 } });
   await expect(page.locator('.app-shell')).not.toHaveClass(/sidebar-collapsed/);
-  await page.getByRole('navigation').getByRole('link', { name: 'Crisis Map', exact: true }).click();
+  await page
+    .getByRole('navigation', { name: 'Main navigation' })
+    .getByRole('link', { name: 'Crisis Map', exact: true })
+    .click();
   await expect(page.getByRole('heading', { name: 'Crisis map', exact: true })).toBeVisible();
-  await expect(page.locator('.app-shell')).not.toHaveClass(/sidebar-collapsed/);
-  await page.getByRole('navigation').getByRole('link', { name: 'Overview', exact: true }).click();
   await expect(page.locator('.app-shell')).toHaveClass(/sidebar-collapsed/);
+  await expect(page.getByRole('link', { name: 'Crisis Map', exact: true })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await page.getByRole('button', { name: 'Open sidebar', exact: true }).click();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Open sidebar', exact: true })).toBeFocused();
+  await page.setViewportSize({ width: 820, height: 1024 });
+  await page.getByRole('button', { name: 'Open sidebar', exact: true }).click();
+  await page
+    .getByRole('navigation', { name: 'Main navigation' })
+    .getByRole('link', { name: 'Incidents', exact: true })
+    .click();
+  await expect(
+    page.getByRole('heading', { name: 'Incident management', exact: true }),
+  ).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 test('all routes render without application errors', async ({ page }) => {
   const errors: string[] = [];
@@ -106,6 +131,13 @@ test('theme persists and mobile navigation works without overflow', async ({ pag
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.setViewportSize({ width: 375, height: 812 });
+  await page.getByLabel('Open navigation').click();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByLabel('Open navigation')).toBeFocused();
+  await page.getByLabel('Open navigation').click();
+  await page.locator('.dialog-overlay').click({ position: { x: 360, y: 100 } });
+  await expect(page.getByRole('dialog')).toHaveCount(0);
   await page.getByLabel('Open navigation').click();
   await page.getByRole('dialog').getByRole('link', { name: 'Historical Replay' }).click();
   await expect(page.getByRole('heading', { name: 'Historical replay', exact: true })).toBeVisible();

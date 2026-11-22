@@ -127,7 +127,7 @@ export function CategoryChart({ incidents }: { incidents: Incident[] }) {
               isAnimationActive={false}
               dataKey="value"
               name="Incidents"
-              fill="var(--primary)"
+              fill="var(--accent)"
               radius={[0, 4, 4, 0]}
               barSize={14}
             />

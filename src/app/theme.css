@@ -1,3 +1,83 @@
+/* Shared semantic palette. Layout lives in workspace.css. */
+:root {
+  --background: #f5f7f9;
+  --surface: #ffffff;
+  --surface-alt: #f1f5f6;
+  --foreground: #192b38;
+  --muted: #5e7180;
+  --border: #e0e7eb;
+  --primary: #0f766e;
+  --primary-hover: #115e59;
+  --primary-soft: #e7f3f0;
+  --accent: #0f766e;
+  --sidebar: #ffffff;
+  --ring: #2a9b89;
+  --cyan: #0f766e;
+  --cyan-soft: #edf6f4;
+  --violet: #626080;
+  --violet-soft: #efeff6;
+  --success: #237d65;
+  --success-soft: #eaf5ef;
+  --severity-critical: #df5261;
+  --severity-high: #e58d47;
+  --severity-medium: #dfb54e;
+  --severity-low: #5598b3;
+  --severity-unknown: #8597a4;
+  --critical-ink: #b62f42;
+  --high-ink: #a2511d;
+  --medium-ink: #85600a;
+  --low-ink: #2b6c83;
+  --critical-soft: #fdf0f1;
+  --high-soft: #fcf2e9;
+  --medium-soft: #fbf6e8;
+  --low-soft: #edf5f8;
+  --map-water: #e8eff0;
+  --map-land: #f3f7f7;
+  --map-india: #ffffff;
+  --map-border: #bed0d4;
+  --radius: 0.75rem;
+  --shadow: 0 2px 8px #182e3805;
+  --font-sans: 'Inter Variable', Inter, Arial, sans-serif;
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  --background: #0c151d;
+  --surface: #14232e;
+  --surface-alt: #1a2e3a;
+  --foreground: #edf3f5;
+  --muted: #a3b6c3;
+  --border: #293e4b;
+  --primary: #0f766e;
+  --primary-hover: #128579;
+  --primary-soft: #173d3b;
+  --accent: #66d9c2;
+  --sidebar: #101d27;
+  --ring: #66d9c2;
+  --cyan: #66d9c2;
+  --cyan-soft: #173835;
+  --violet: #bfbed7;
+  --violet-soft: #303147;
+  --success: #81cfad;
+  --success-soft: #173b32;
+  --severity-critical: #f4828e;
+  --severity-high: #f2b67e;
+  --severity-medium: #e9ca79;
+  --severity-low: #89c4dc;
+  --severity-unknown: #a3b6c3;
+  --critical-ink: #f7a2ac;
+  --high-ink: #f5c599;
+  --medium-ink: #f1d792;
+  --low-ink: #a1d6e9;
+  --critical-soft: #432a35;
+  --high-soft: #413427;
+  --medium-soft: #3c3827;
+  --low-soft: #1b3947;
+  --map-water: #0c1920;
+  --map-land: #18303b;
+  --map-india: #23505b;
+  --map-border: #3c626f;
+  color-scheme: dark;
+}
 /* Crisis Lens: midnight navy, signal blue and cyan. Severity stays semantic. */
 ::selection {
   background: var(--primary);
@@ -10,7 +90,7 @@ input[type='checkbox'] {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
-  box-shadow: 0 3px 9px #2563eb20;
+  box-shadow: 0 2px 4px #123a3210;
 }
 .button-primary:hover {
   background: var(--primary-hover);
@@ -22,86 +102,90 @@ input[type='checkbox'] {
   background: var(--primary-soft);
 }
 .brand-mark {
-  background: #22d3ee;
-  color: #071831;
+  background: var(--primary);
+  color: #fff;
+}
+.sidebar .brand,
+.mobile-sidebar .brand {
+  color: var(--foreground);
 }
 .brand-mark:after {
-  border-color: #22d3ee45;
+  border-color: transparent;
 }
 .brand-name > span {
-  color: #67e8f9;
+  color: var(--accent);
 }
 .brand-name small {
-  color: #9ab5da;
+  color: var(--muted);
 }
 .sidebar {
-  color: #b6c9e6;
-  border-right: 1px solid #19335a;
+  color: var(--muted);
+  border-right: 1px solid var(--border);
 }
 .sidebar .workspace-switch {
-  background: #102749;
-  border-color: #25446c;
-  color: #eff6ff;
+  background: var(--surface-alt);
+  border-color: var(--border);
+  color: var(--foreground);
 }
 .sidebar .workspace-avatar {
-  background: #174383;
-  border-color: #3165a8;
-  color: #a5f3fc;
+  background: var(--primary-soft);
+  border-color: var(--border);
+  color: var(--accent);
 }
 .sidebar .workspace-switch small {
-  color: #9bb9df;
+  color: var(--muted);
 }
 .sidebar .nav-label {
-  color: #83a5d3;
+  color: var(--muted);
 }
 .sidebar .nav-item {
-  color: #b2c9e7;
+  color: var(--muted);
 }
 .sidebar .nav-item:hover {
-  background: #12315a;
-  color: #fff;
+  background: var(--surface-alt);
+  color: var(--foreground);
 }
 .sidebar .nav-item.active {
-  background: #2563eb;
-  color: #fff;
+  background: var(--primary-soft);
+  color: var(--accent);
 }
 .sidebar .nav-item.active:before {
-  background: #22d3ee;
+  background: var(--primary);
 }
 .sidebar .nav-item.active > svg {
-  color: #fff;
+  color: var(--accent);
 }
 .sidebar .nav-item.active .nav-count {
-  background: #ffffff25;
-  color: #fff;
+  background: var(--surface);
+  color: var(--accent);
 }
 .sidebar .nav-live {
   background: #22d3ee;
 }
 .sidebar .nav-count {
-  color: #c2d7f3;
-  background: #17345a;
-  border-color: #254970;
+  background: var(--surface-alt);
+  color: var(--muted);
+  border-color: var(--border);
 }
 .sidebar .system-status {
-  background: #0c2544;
-  border-color: #1e4066;
-  color: #d3e6ff;
+  background: var(--surface-alt);
+  border-color: var(--border);
+  color: var(--foreground);
 }
 .sidebar .system-status small,
 .sidebar .profile small {
-  color: #94b5de;
+  color: var(--muted);
 }
 .sidebar .system-status > svg {
-  color: #22d3ee;
+  color: var(--accent);
 }
 .sidebar .profile {
-  color: #e2eeff;
+  color: var(--foreground);
 }
 .sidebar .profile .avatar {
-  color: #fff;
-  background: #1d4ed8;
-  border-color: #3b82f6;
+  background: var(--primary-soft);
+  color: var(--accent);
+  border-color: var(--border);
 }
 .avatar,
 .topbar-avatar {
@@ -143,22 +227,22 @@ input[type='checkbox'] {
   color: var(--accent);
 }
 .metric-card {
-  border-top: 3px solid var(--primary);
+  border-top: 1px solid var(--border);
 }
 .metric-card:nth-child(2) {
-  border-top-color: var(--severity-critical);
+  border-top-color: var(--border);
 }
 .metric-card:nth-child(3) {
-  border-top-color: var(--violet);
+  border-top-color: var(--border);
 }
 .metric-card:nth-child(4) {
-  border-top-color: var(--cyan);
+  border-top-color: var(--border);
 }
 .metric-card:nth-child(5) {
-  border-top-color: var(--severity-medium);
+  border-top-color: var(--border);
 }
 .metric-card:nth-child(6) {
-  border-top-color: var(--success);
+  border-top-color: var(--border);
 }
 .metric-value strong {
   color: var(--foreground);
@@ -183,20 +267,20 @@ input[type='checkbox'] {
   background: var(--critical-soft);
 }
 .metric-icon.violet {
-  color: var(--violet);
-  background: var(--violet-soft);
+  color: var(--accent);
+  background: var(--primary-soft);
 }
 .metric-icon.amber {
-  color: var(--severity-medium);
-  background: var(--medium-soft);
+  color: var(--accent);
+  background: var(--primary-soft);
 }
 .metric-icon.green {
-  color: var(--success);
-  background: var(--success-soft);
+  color: var(--accent);
+  background: var(--primary-soft);
 }
 .metric-card:nth-child(4) .metric-icon {
-  color: var(--cyan);
-  background: var(--cyan-soft);
+  color: var(--accent);
+  background: var(--primary-soft);
 }
 .status-dot {
   background: var(--success);
@@ -363,25 +447,25 @@ input[type='checkbox'] {
 }
 .marker-cluster-small,
 .marker-cluster-small div {
-  background: #2563eb24 !important;
+  background: color-mix(in srgb, var(--primary) 18%, transparent) !important;
   color: var(--accent);
 }
 .marker-cluster-medium,
 .marker-cluster-medium div {
-  background: #0891b23d !important;
-  color: var(--cyan);
+  background: color-mix(in srgb, var(--primary) 30%, transparent) !important;
+  color: var(--accent);
 }
 .mobile-sidebar .nav-item.active {
   color: var(--accent);
   background: var(--primary-soft);
 }
 .mobile-sidebar .workspace-avatar {
+  background: var(--primary);
   color: #fff;
-  background: #2563eb;
 }
 .tooltip {
-  background: #102b53;
-  color: #eff6ff;
+  background: #183d36;
+  color: #fff;
 }
 @media print {
   .metric-card {
@@ -401,12 +485,12 @@ input[type='checkbox'] {
   color: var(--low-ink);
 }
 [data-theme='dark'] .button-primary {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: var(--primary);
+  border-color: var(--primary);
 }
 [data-theme='dark'] .button-primary:hover {
-  background: #1d4ed8;
-  border-color: #1d4ed8;
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 [data-theme='dark'] .leaflet-geographic-context-pane .map-country-india {
   fill: var(--map-india);
