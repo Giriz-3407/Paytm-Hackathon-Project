@@ -1,4 +1,5 @@
 'use client';
+import { LIVE } from '@/lib/live';
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Database, ExternalLink, Clock3, RefreshCw, Info } from 'lucide-react';
@@ -51,8 +52,9 @@ export function SourcesPage() {
       <div className="notice">
         <Info size={18} />
         <p>
-          All source activity is simulated. Provider names describe intended integrations; these
-          demo toggles do not control external services.
+          {LIVE
+            ? 'News discovery is live (Google News via SerpApi). Sources marked Offline have no connector yet. Toggles here are stored by the backend.'
+            : 'All source activity is simulated. Provider names describe intended integrations; these demo toggles do not control external services.'}
         </p>
       </div>
       <div className="view-controls">
@@ -64,7 +66,9 @@ export function SourcesPage() {
             ),
           )}
         </Select>
-        <span className="muted">{data.length} configured demo sources</span>
+        <span className="muted">
+          {data.length} configured {LIVE ? 'sources' : 'demo sources'}
+        </span>
       </div>
       {q.isLoading ? (
         <LoadingState />
@@ -135,17 +139,26 @@ export function SourcesPage() {
       >
         {view && (
           <div className="source-detail">
-            <Badge>SIMULATED INTEGRATION</Badge>
+            <Badge>
+              {LIVE
+                ? view.status === 'Offline'
+                  ? 'NOT CONNECTED'
+                  : 'LIVE INTEGRATION'
+                : 'SIMULATED INTEGRATION'}
+            </Badge>
             <p>Type: {view.type}</p>
             <p>Last successful sync: {dateLabel(view.lastSync, true)}</p>
             <p>Last attempted sync: {dateLabel(view.lastAttempt, true)}</p>
             <p>Monitoring frequency: {view.frequency}</p>
-            <h3>Illustrative ingestion history</h3>
+            <h3>{LIVE ? 'Ingestion history' : 'Illustrative ingestion history'}</h3>
             <div className="timeline-item">
               <Database size={16} />
               <div>
                 <strong>Last successful batch</strong>
-                <p>{dateLabel(view.lastSync, true)} · Demo ingestion completed</p>
+                <p>
+                  {dateLabel(view.lastSync, true)} ·{' '}
+                  {LIVE ? 'Last successful collection' : 'Demo ingestion completed'}
+                </p>
               </div>
             </div>
             <div className="timeline-item">
@@ -154,12 +167,12 @@ export function SourcesPage() {
                 <strong>Latest attempt</strong>
                 <p>
                   {dateLabel(view.lastAttempt, true)} ·{' '}
-                  {view.error || 'Demo source check successful'}
+                  {view.error || (LIVE ? 'Collection completed' : 'Demo source check successful')}
                 </p>
               </div>
             </div>
             <h3>Recent errors</h3>
-            <p>{view.error || 'No simulated errors recorded.'}</p>
+            <p>{view.error || (LIVE ? 'No errors recorded.' : 'No simulated errors recorded.')}</p>
             {view.url && (
               <a className="text-link" href={view.url} target="_blank" rel="noreferrer">
                 Provider website

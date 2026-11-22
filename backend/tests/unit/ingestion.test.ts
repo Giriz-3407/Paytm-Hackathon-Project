@@ -14,6 +14,9 @@ vi.mock('../../src/modules/incidents/incidents.repository', () => ({
 vi.mock('../../src/modules/incidents/incidents.service', () => ({
   incidentsService: { create: vi.fn(), update: vi.fn() },
 }));
+vi.mock('../../src/modules/sources/sources.repository', () => ({
+  sourcesRepository: { findById: vi.fn() },
+}));
 vi.mock('../../src/modules/sources/sources.service', () => ({
   sourcesService: { recordCollection: vi.fn() },
 }));
@@ -24,6 +27,7 @@ import { evidenceRepository } from '../../src/modules/evidence/evidence.reposito
 import { evidenceService } from '../../src/modules/evidence/evidence.service';
 import { incidentsRepository } from '../../src/modules/incidents/incidents.repository';
 import { incidentsService } from '../../src/modules/incidents/incidents.service';
+import { sourcesRepository } from '../../src/modules/sources/sources.repository';
 import { sourcesService } from '../../src/modules/sources/sources.service';
 import { AppError } from '../../src/utils/app-error';
 import { searchGoogleNews } from '../../src/services/serpapi.service';
@@ -113,6 +117,7 @@ describe('ingestionService.run', () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    vi.mocked(sourcesRepository.findById).mockResolvedValue({ id: 's1', enabled: true } as never);
     vi.mocked(evidenceRepository.findExistingUrls).mockResolvedValue(new Set());
     vi.mocked(incidentsRepository.findClusterCandidate).mockResolvedValue(null);
     vi.mocked(evidenceRepository.listByIncident).mockResolvedValue([]);
@@ -226,6 +231,7 @@ describe('ingestionService.run', () => {
 describe('ingestion error handling', () => {
   it('never exposes internal (non-AppError) failure details in the summary or source health', async () => {
     vi.resetAllMocks();
+    vi.mocked(sourcesRepository.findById).mockResolvedValue({ id: 's1', enabled: true } as never);
     vi.mocked(evidenceRepository.findExistingUrls).mockResolvedValue(new Set());
     vi.mocked(evidenceRepository.listByIncident).mockResolvedValue([]);
     vi.mocked(incidentsRepository.findClusterCandidate).mockResolvedValue(null);
@@ -244,5 +250,21 @@ describe('ingestion error handling', () => {
 
     expect(JSON.stringify(summary)).not.toContain('secret table detail');
     expect(summary.errors[0]!.message).toBe('Unexpected error while processing');
+  });
+});
+
+describe('source enable switch', () => {
+  it('refuses to collect (and spends no SerpApi quota) while the source is disabled', async () => {
+    vi.resetAllMocks();
+    vi.mocked(sourcesRepository.findById).mockResolvedValue({ id: 's1', enabled: false } as never);
+
+    await expect(ingestionService.run(['q'])).rejects.toMatchObject({ statusCode: 409 });
+    expect(searchGoogleNews).not.toHaveBeenCalled();
+  });
+
+  it('fails clearly when the source row is missing', async () => {
+    vi.resetAllMocks();
+    vi.mocked(sourcesRepository.findById).mockResolvedValue(null);
+    await expect(ingestionService.run(['q'])).rejects.toMatchObject({ statusCode: 404 });
   });
 });

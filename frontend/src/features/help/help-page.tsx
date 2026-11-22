@@ -1,3 +1,4 @@
+import { LIVE } from '@/lib/live';
 import { BookOpen, History, ShieldCheck, Map, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/primitives';
@@ -27,7 +28,11 @@ export function HelpPage() {
           {
             icon: Map,
             title: 'Explore the situation',
-            text: 'Start on Overview for the fixed demo snapshot. Use the map and incident filters to narrow by category, severity, evidence, state, or time.',
+            text:
+              (LIVE
+                ? 'Start on Overview for the live picture. '
+                : 'Start on Overview for the fixed demo snapshot. ') +
+              'Use the map and incident filters to narrow by category, severity, evidence, state, or time.',
             href: '/dashboard',
             link: 'Open overview',
           },
@@ -41,7 +46,11 @@ export function HelpPage() {
           {
             icon: ShieldCheck,
             title: 'Read evidence carefully',
-            text: 'Severity describes potential impact. Evidence status describes corroboration. They are separate assessments. In this demo, both are illustrative.',
+            text:
+              'Severity describes potential impact. Evidence status describes corroboration. They are separate assessments. ' +
+              (LIVE
+                ? 'For news-derived incidents severity stays Unknown until evidence supports it.'
+                : 'In this demo, both are illustrative.'),
             href: '/incidents',
             link: 'Browse incidents',
           },
@@ -59,8 +68,18 @@ export function HelpPage() {
       <Card className="settings-card">
         <h2>Understanding the data</h2>
         <p>
-          <strong>Demo monitoring:</strong> fictional incidents referenced to 22 November 2026 at
-          12:00 IST. Nothing in this workspace should be interpreted as a current emergency.
+          {LIVE ? (
+            <>
+              <strong>Live monitoring:</strong> incidents are detected automatically from news
+              reports (Google News via SerpApi) and are unverified unless marked otherwise. This is
+              not an official emergency alert; follow guidance from official authorities.
+            </>
+          ) : (
+            <>
+              <strong>Demo monitoring:</strong> fictional incidents referenced to 22 November 2026
+              at 12:00 IST. Nothing in this workspace should be interpreted as a current emergency.
+            </>
+          )}
         </p>
         <p>
           <strong>Historical replay:</strong> real historical scenario names with synthetic

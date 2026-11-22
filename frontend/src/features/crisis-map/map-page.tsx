@@ -1,4 +1,5 @@
 'use client';
+import { LIVE } from '@/lib/live';
 import { useState } from 'react';
 import { PageHeader } from '@/components/shared/page-header';
 import { FilterBar } from '@/components/shared/filter-bar';
@@ -29,7 +30,10 @@ export function MapPage() {
         <Card>
           <div className="panel-title">
             <h2>India · incident landscape</h2>
-            <span>{data.length} illustrative city-level locations</span>
+            <span>
+              {data.length}{' '}
+              {LIVE ? 'incidents at approximate locations' : 'illustrative city-level locations'}
+            </span>
           </div>
           <CrisisMap incidents={data} height={590} onSelect={setSelected} />
         </Card>

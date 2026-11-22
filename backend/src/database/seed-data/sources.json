@@ -6,37 +6,31 @@
     "url": "https://news.google.com",
     "status": "Healthy",
     "enabled": true,
-    "frequency": "Every 5 minutes",
-    "reports": 1248,
-    "error": null,
-    "lastSync": "2026-11-22T06:25:00Z",
-    "lastAttempt": "2026-11-22T06:29:00Z"
+    "frequency": "On demand (POST /ingestion/run) or SERPAPI_POLL_MINUTES",
+    "reports": 0,
+    "error": null
   },
   {
     "id": "s2",
     "name": "India Meteorological Department",
     "type": "Weather bulletins",
     "url": "https://mausam.imd.gov.in",
-    "status": "Healthy",
-    "enabled": true,
-    "frequency": "Every 15 minutes",
-    "reports": 342,
-    "error": null,
-    "lastSync": "2026-11-22T06:25:00Z",
-    "lastAttempt": "2026-11-22T06:29:00Z"
+    "status": "Offline",
+    "enabled": false,
+    "frequency": "Not scheduled",
+    "reports": 0,
+    "error": "Connector not implemented yet."
   },
   {
     "id": "s3",
     "name": "NDMA alert bulletin",
     "type": "Official alerts",
     "url": "https://ndma.gov.in",
-    "status": "Delayed",
-    "enabled": true,
-    "frequency": "Every 10 minutes",
-    "reports": 186,
-    "error": "Simulated timeout on the last ingestion attempt.",
-    "lastSync": "2026-11-22T06:25:00Z",
-    "lastAttempt": "2026-11-22T06:29:00Z"
+    "status": "Offline",
+    "enabled": false,
+    "frequency": "Not scheduled",
+    "reports": 0,
+    "error": "Connector not implemented yet."
   },
   {
     "id": "s4",
@@ -47,8 +41,6 @@
     "enabled": true,
     "frequency": "On demand",
     "reports": 16,
-    "error": null,
-    "lastSync": "2026-11-22T06:25:00Z",
-    "lastAttempt": "2026-11-22T06:29:00Z"
+    "error": null
   }
 ]

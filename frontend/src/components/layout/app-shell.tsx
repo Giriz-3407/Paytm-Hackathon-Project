@@ -1,4 +1,5 @@
 'use client';
+import { LIVE } from '@/lib/live';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -313,10 +314,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <div className="notice">
               <Bell size={20} />
               <div>
-                <strong>Demo workspace ready</strong>
+                <strong>{LIVE ? 'Live workspace ready' : 'Demo workspace ready'}</strong>
                 <p>
-                  Explore {data.length} illustrative incidents and two historical training
-                  scenarios.
+                  {LIVE
+                    ? `Tracking ${data.length} incidents detected from live news, plus two historical training scenarios.`
+                    : `Explore ${data.length} illustrative incidents and two historical training scenarios.`}
                 </p>
               </div>
             </div>

@@ -1,4 +1,5 @@
 'use client';
+import { LIVE } from '@/lib/live';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { List, Map as MapIcon, Maximize, Minimize, LocateFixed } from 'lucide-react';
@@ -84,7 +85,9 @@ export function CrisisMap({
                 {s}
               </span>
             ))}
-            <span className="map-legend-note">Illustrative locations</span>
+            <span className="map-legend-note">
+              {LIVE ? 'Approximate locations' : 'Illustrative locations'}
+            </span>
           </div>
         </>
       )}

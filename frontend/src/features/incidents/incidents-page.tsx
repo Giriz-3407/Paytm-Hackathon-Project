@@ -1,4 +1,5 @@
 'use client';
+import { LIVE } from '@/lib/live';
 import { useDeferredValue, useState } from 'react';
 import { Download, LayoutGrid, List } from 'lucide-react';
 import { useIncidents } from '@/services/hooks';
@@ -58,7 +59,9 @@ export function IncidentsPage() {
       />
       <FilterBar filters={filters} onChange={setFilters} incidents={q.data || []} extended />
       <div className="view-controls">
-        <span className="muted">{data.length} illustrative incidents</span>
+        <span className="muted">
+          {data.length} {LIVE ? 'incidents' : 'illustrative incidents'}
+        </span>
         <div className="multi-filters">
           <Select
             label="Add category filter"

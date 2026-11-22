@@ -5,6 +5,7 @@ import { evidenceRepository } from '../evidence/evidence.repository';
 import { evidenceService } from '../evidence/evidence.service';
 import { incidentsRepository } from '../incidents/incidents.repository';
 import { incidentsService } from '../incidents/incidents.service';
+import { sourcesRepository } from '../sources/sources.repository';
 import { sourcesService } from '../sources/sources.service';
 import { classifyCategory, locateArticle } from './ingestion.classifier';
 
@@ -72,6 +73,12 @@ export const ingestionService = {
    * independent publishers agree. Severity is never guessed; new incidents are `Unknown`.
    */
   async run(queries: string[] = DEFAULT_QUERIES): Promise<IngestionSummary> {
+    // The enable/disable switch on the Sources page must actually stop collection.
+    const source = await sourcesRepository.findById(NEWS_SOURCE_ID);
+    if (!source) throw AppError.notFound('News source is not configured (run: npm run db:seed)');
+    if (!source.enabled) {
+      throw AppError.conflict('The News discovery source is disabled. Enable it on the Sources page.');
+    }
     if (running) throw AppError.conflict('An ingestion run is already in progress');
     running = true;
     const startedAt = new Date();

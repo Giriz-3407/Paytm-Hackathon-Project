@@ -157,7 +157,7 @@ Body `{ "role": "ANALYST" }`. You cannot change your own role.
   "sourceCount": 4,
   "summary": "…",
   "relatedEvidenceIds": ["ev-0-s1", "ev-0-s2", "ev-0-s3", "ev-0-s4"],
-  "mode": "demo"
+  "mode": "live"
 }
 ```
 
@@ -341,6 +341,41 @@ involved**, and the report's `limitations` say so. Replace `composeReport` in
 `src/modules/reports/reports.service.ts` when an LLM pipeline exists.
 
 ---
+
+## Ingestion (SerpApi)
+
+Both endpoints require an ADMIN/ANALYST token (a run spends SerpApi quota).
+
+### `GET /ingestion/status`
+
+```json
+{ "configured": true, "running": false, "pollMinutes": 0, "defaultQueries": ["India flood", "India cyclone", "…"] }
+```
+
+### `POST /ingestion/run`
+
+Body (optional): `{ "queries": ["India flood", "Odisha cyclone"] }` (1–10 queries; default is one per hazard type).
+`409` if a run is already in progress or the News discovery source is disabled; `503` if no API key is set.
+
+```json
+{
+  "startedAt": "2026-11-22T10:07:13.499Z",
+  "finishedAt": "2026-11-22T10:07:16.991Z",
+  "queries": 8,
+  "queriesFailed": 0,
+  "articlesSeen": 558,
+  "skipped": { "duplicate": 0, "stale": 374, "notCrisis": 33, "noLocation": 70 },
+  "evidenceAdded": 81,
+  "incidentsCreated": 12,
+  "incidentsUpdated": 69,
+  "errors": []
+}
+```
+
+Rules: articles older than 7 days are skipped; headlines must match a hazard category; the location is taken from
+the **headline only** (state-only matches are labelled "(state-level)"); reports cluster into an open live incident
+of the same category and state from the last 72 hours. Created incidents are `mode: "live"`, id `LV-XXXXXXXX`,
+severity `Unknown`. `errors` never contains internal details.
 
 ## Realtime (Socket.IO)
 

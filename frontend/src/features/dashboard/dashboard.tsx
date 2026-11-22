@@ -1,4 +1,5 @@
 'use client';
+import { LIVE } from '@/lib/live';
 import { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -34,12 +35,14 @@ export function Dashboard() {
   const [range, setRange] = useState('7');
   const [from, setFrom] = useState('2026-11-01');
   const [to, setTo] = useState('2026-11-22');
+  // In API mode the window is anchored to the real current time instead of the fixed demo snapshot.
+  const [nowIso] = useState(() => (LIVE ? new Date().toISOString() : DEMO_NOW));
   const [severity, setSeverity] = useState('');
   const [mapTab, setMapTab] = useState('all');
   const [ack, setAck] = useState<string[]>([]);
   const data = filterIncidents(query.data || [], {
-    from: range === 'custom' ? `${from}T00:00:00+05:30` : rangeStart(Number(range), DEMO_NOW),
-    to: range === 'custom' ? `${to}T23:59:59+05:30` : DEMO_NOW,
+    from: range === 'custom' ? `${from}T00:00:00+05:30` : rangeStart(Number(range), nowIso),
+    to: range === 'custom' ? `${to}T23:59:59+05:30` : LIVE ? undefined : DEMO_NOW,
   });
   const active = data.filter((i) => i.lifecycleStatus !== 'Resolved');
   const critical = data.filter((i) => i.severity === 'Critical');
@@ -70,10 +73,12 @@ export function Dashboard() {
     },
     {
       label: 'New in last 24 hours',
-      value: data.filter((i) => i.firstDetectedAt >= rangeStart(1, DEMO_NOW)).length,
+      value: data.filter((i) => i.firstDetectedAt >= rangeStart(1, nowIso)).length,
       icon: Plus,
-      note: 'Since demo snapshot − 24h',
-      tip: 'Selected incidents first detected in the 24 hours before the fixed demo snapshot.',
+      note: LIVE ? 'Last 24 hours' : 'Since demo snapshot − 24h',
+      tip: LIVE
+        ? 'Selected incidents first detected in the last 24 hours.'
+        : 'Selected incidents first detected in the 24 hours before the fixed demo snapshot.',
       tone: 'blue',
     },
     {
@@ -85,11 +90,13 @@ export function Dashboard() {
       tone: 'amber',
     },
     {
-      label: 'Demo sources enabled',
+      label: LIVE ? 'Sources enabled' : 'Demo sources enabled',
       value: (sources.data || []).filter((s) => s.enabled && s.status !== 'Offline').length,
       icon: Database,
       note: `${sources.data?.length || 0} configured sources`,
-      tip: 'Enabled simulated sources. No external integrations are connected.',
+      tip: LIVE
+        ? 'Enabled sources that are not offline.'
+        : 'Enabled simulated sources. No external integrations are connected.',
       tone: 'green',
     },
   ];
@@ -134,13 +141,13 @@ export function Dashboard() {
       <div className="overview-toolbar">
         <div className="monitoring-status">
           <span className="status-dot" />
-          <strong>Demo monitoring</strong>
+          <strong>{LIVE ? 'Live monitoring' : 'Demo monitoring'}</strong>
           <span className="toolbar-separator" />
           <span>
             <Clock3 size={13} />
-            Snapshot: 22 Nov 2026, 12:00 IST
+            {LIVE ? 'Source: Google News via SerpApi' : 'Snapshot: 22 Nov 2026, 12:00 IST'}
           </span>
-          <Badge className="freshness-badge">Fixed demo snapshot</Badge>
+          <Badge className="freshness-badge">{LIVE ? 'Live data' : 'Fixed demo snapshot'}</Badge>
         </div>
         <Select
           label="Dashboard time range"
@@ -200,7 +207,11 @@ export function Dashboard() {
                     <MapPin size={16} />
                     Crisis landscape
                   </h2>
-                  <p>Geographical overview of illustrative incidents</p>
+                  <p>
+                    {LIVE
+                      ? 'Geographical overview of detected incidents'
+                      : 'Geographical overview of illustrative incidents'}
+                  </p>
                 </div>
                 <Link className="text-link" href="/map">
                   Explore map <ExternalLink size={12} />
@@ -254,7 +265,11 @@ export function Dashboard() {
                 </h2>
                 <Badge className="neutral-badge">{data.length} incidents</Badge>
               </div>
-              <div className="feed-caption">Latest updates from the demo dataset</div>
+              <div className="feed-caption">
+                {LIVE
+                  ? 'Latest updates from live ingestion'
+                  : 'Latest updates from the demo dataset'}
+              </div>
               <div className="recent-feed">
                 {data.length ? (
                   data.slice(0, 5).map((i) => <CompactIncident key={i.id} incident={i} />)
@@ -351,8 +366,10 @@ export function Dashboard() {
           </Card>
           <div className="demo-footnote">
             <Info size={13} />
-            You’re exploring a demo workspace. All incidents, assessments, and ingestion activity
-            are illustrative. <Link href="/help">Learn more</Link>
+            {LIVE
+              ? 'Incidents are detected automatically from news reports and stay unverified unless marked otherwise. This is not an official emergency alert. '
+              : 'You’re exploring a demo workspace. All incidents, assessments, and ingestion activity are illustrative. '}
+            <Link href="/help">Learn more</Link>
           </div>
         </>
       )}
