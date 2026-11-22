@@ -1,0 +1,449 @@
+/* Keep primary content readable in a dense operational workspace. */
+body {
+  font-size: 16px;
+}
+.nav-item {
+  font-size: 12px;
+}
+.workspace-switch {
+  font-size: 12px;
+}
+.workspace-switch small {
+  font-size: 10px;
+}
+.breadcrumb {
+  font-size: 12px;
+}
+.global-search {
+  font-size: 12px;
+}
+.page-header p {
+  font-size: 14px;
+}
+.page-actions .button {
+  font-size: 12px;
+}
+.button,
+.input {
+  font-size: 14px;
+}
+.button-sm {
+  font-size: 12px;
+}
+.badge {
+  font-size: 12px;
+}
+.demo-badge {
+  font-size: 10px;
+}
+.metric-top {
+  font-size: 12px;
+  white-space: normal;
+  min-height: 32px;
+  align-items: flex-start;
+}
+.metric-top button {
+  margin-top: 3px;
+}
+.metric-note {
+  font-size: 10px;
+  white-space: normal;
+}
+.metric-value strong {
+  font-size: 32px;
+}
+.monitoring-status,
+.monitoring-status strong {
+  font-size: 12px;
+}
+.monitoring-status .badge {
+  font-size: 10px;
+}
+.overview-toolbar .input {
+  font-size: 12px;
+  width: 150px;
+  height: 34px;
+}
+.panel-title h2 {
+  font-size: 14px;
+}
+.panel-title p,
+.panel-title > span {
+  font-size: 12px;
+}
+.panel-title > .text-link {
+  font-size: 12px;
+}
+.map-filter-row .input {
+  font-size: 12px;
+  width: 128px;
+  height: 30px;
+}
+.segmented button {
+  font-size: 12px;
+}
+.feed-caption {
+  font-size: 12px;
+}
+.compact-incident {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.compact-incident h3 {
+  font-size: 14px;
+}
+.compact-heading > span:first-child {
+  font-size: 10px;
+}
+.compact-heading .badge {
+  font-size: 10px;
+}
+.compact-meta {
+  font-size: 10px;
+}
+.panel-bottom-link {
+  font-size: 12px;
+}
+.chart-legend > div {
+  font-size: 12px;
+}
+.chart-legend small {
+  font-size: 11px;
+}
+.donut-center span {
+  font-size: 10px;
+}
+.chart-card > .panel-title > span {
+  font-size: 10px;
+}
+.alert-label {
+  font-size: 10px;
+}
+.alert-item h3 {
+  font-size: 13px;
+}
+.alert-item p {
+  font-size: 11px;
+}
+.alerts-note {
+  font-size: 10px;
+}
+.source-health h2 {
+  font-size: 13px;
+}
+.source-health-items > a {
+  font-size: 11px;
+}
+.source-health > .text-link {
+  font-size: 11px;
+}
+.demo-footnote,
+.app-footer {
+  font-size: 11px;
+}
+.map-view-switch button {
+  font-size: 12px;
+}
+.map-legend {
+  font-size: 10px;
+}
+.map-panel-footer {
+  font-size: 10px;
+}
+.evidence-badge {
+  font-size: 11px;
+}
+.incident-summary {
+  font-size: 14px;
+}
+.incident-card h3 {
+  font-size: 16px;
+}
+.location {
+  font-size: 12px;
+}
+.incident-footer {
+  font-size: 11px;
+}
+.filter-bar .input,
+.filter-bar .button {
+  font-size: 12px;
+}
+.detail-section p,
+.print-report p,
+.print-report li,
+.settings-card > p,
+.help-card p,
+.event-feed > p,
+.report-card > p {
+  font-size: 16px;
+}
+.detail-section h3 {
+  font-size: 16px;
+}
+.detail-facts strong {
+  font-size: 12px;
+}
+.settings-form > label,
+.preference-row strong {
+  font-size: 14px;
+}
+.preference-row p {
+  font-size: 14px;
+}
+.notice p {
+  font-size: 14px;
+}
+.report-strip p {
+  font-size: 14px;
+}
+.report-strip strong {
+  font-size: 14px;
+}
+.empty-state p {
+  font-size: 14px;
+}
+.tabs-trigger {
+  font-size: 14px;
+}
+.report-card-footer > span {
+  font-size: 12px;
+}
+.source-card > .muted,
+.source-stats span {
+  font-size: 12px;
+}
+.source-stats strong {
+  font-size: 16px;
+}
+.source-card-footer > .button {
+  font-size: 12px;
+}
+.source-detail > p {
+  font-size: 14px;
+}
+.timeline-item p {
+  font-size: 14px;
+}
+.replay-config label {
+  font-size: 12px;
+}
+.replay-stats {
+  font-size: 12px;
+}
+.scenario-picker > label,
+.scenario-picker > span {
+  font-size: 12px;
+}
+.help-intro p {
+  font-size: 16px;
+}
+.search-results > a > span {
+  font-size: 14px;
+}
+.search-results small {
+  font-size: 12px;
+}
+@media (max-width: 1250px) {
+  .metric-top {
+    font-size: 12px;
+  }
+  .metric-note {
+    font-size: 10px;
+  }
+  .source-health-items {
+    gap: 10px;
+  }
+  .source-health-items > a {
+    font-size: 10px;
+  }
+  .source-health h2 {
+    font-size: 12px;
+  }
+  .replay-stats {
+    font-size: 11px;
+  }
+  .monitoring-status,
+  .monitoring-status strong {
+    font-size: 11px;
+  }
+}
+@media (max-width: 767px) {
+  .page-header p {
+    font-size: 14px;
+  }
+  .page-actions .button {
+    font-size: 12px;
+  }
+  .metric-top {
+    font-size: 12px;
+  }
+  .metric-note {
+    font-size: 10px;
+  }
+  .monitoring-status,
+  .monitoring-status strong {
+    font-size: 10px;
+  }
+  .overview-toolbar .input {
+    font-size: 11px;
+    width: 125px;
+  }
+  .panel-title > .text-link {
+    font-size: 10px;
+  }
+  .panel-title p {
+    font-size: 11px;
+  }
+  .compact-incident h3 {
+    font-size: 14px;
+  }
+  .compact-meta {
+    font-size: 10px;
+  }
+  .compact-heading .badge {
+    font-size: 10px;
+  }
+  .source-health-items > a {
+    font-size: 10px;
+  }
+  .map-filter-row .input {
+    font-size: 11px;
+    width: 116px;
+  }
+  .segmented button {
+    font-size: 11px;
+  }
+  .map-legend {
+    font-size: 10px;
+  }
+  .demo-footnote,
+  .app-footer {
+    font-size: 10px;
+  }
+  .app-footer > span:first-child {
+    font-size: 10px;
+  }
+  .replay-controls .button,
+  .replay-controls .input {
+    font-size: 11px;
+  }
+  .replay-controls .input {
+    width: 110px;
+  }
+  .replay-config .input {
+    font-size: 12px;
+  }
+  .detail-section p,
+  .print-report p,
+  .print-report li,
+  .settings-card > p,
+  .help-card p,
+  .event-feed > p,
+  .report-card > p {
+    font-size: 15px;
+  }
+  .help-intro p {
+    font-size: 15px;
+  }
+  .notice p {
+    font-size: 13px;
+  }
+  .scenario-picker > label {
+    font-size: 12px;
+  }
+  .replay-console-main h2 {
+    font-size: 38px;
+  }
+  .replay-stats {
+    font-size: 11px;
+  }
+  .tabs-trigger {
+    font-size: 13px;
+  }
+  .source-card-footer > .button {
+    font-size: 11px;
+  }
+}
+.sidebar > nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #384d66 transparent;
+}
+.sidebar > .brand,
+.sidebar > .workspace-switch,
+.sidebar > .nav-label {
+  flex-shrink: 0;
+}
+.sidebar-bottom {
+  flex-shrink: 0;
+  padding-top: 14px;
+}
+.workspace-switch {
+  width: calc(100% - 4px);
+  text-align: left;
+}
+.workspace-menu {
+  z-index: 1700;
+  background: var(--surface);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  min-width: 235px;
+  padding: 7px;
+  box-shadow: 0 8px 30px #172b4625;
+}
+.workspace-menu [role='menuitem'] {
+  padding: 9px 10px;
+  outline: none;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 4px;
+}
+.workspace-menu [role='menuitem'][data-highlighted] {
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+.workspace-menu [role='separator'] {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 0;
+}
+.workspace-menu [data-radix-collection-item] {
+  line-height: 1.5;
+}
+.workspace-menu > div:first-child {
+  padding: 8px 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.dialog-content.navigation-drawer {
+  left: 0;
+  top: 0;
+  transform: none;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: 310px;
+  max-width: calc(100vw - 35px);
+  border-radius: 0;
+  padding: 22px;
+}
+.sidebar-collapsed .mobile-sidebar .nav-item > span {
+  display: initial;
+}
+.sidebar-collapsed .mobile-sidebar .nav-label,
+.sidebar-collapsed .mobile-sidebar .brand-name {
+  display: block;
+}
+.sidebar-collapsed .mobile-sidebar .workspace-switch {
+  display: flex;
+}
+[data-theme='dark'] .leaflet-container {
+  background: #142332 !important;
+}
+[data-theme='dark'] .leaflet-geographic-context-pane path {
+  fill: #26384b;
+  stroke: #4c6178;
+}

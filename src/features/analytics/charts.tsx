@@ -1,0 +1,232 @@
+'use client';
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  BarChart,
+  Bar,
+  Cell,
+  PieChart,
+  Pie,
+} from 'recharts';
+import { Incident, severities, categories } from '@/types/domain';
+import { Card } from '@/components/ui/primitives';
+import { EmptyState } from '@/components/shared/feedback';
+const colors = ['#dc5b58', '#eb9951', '#e6bc56', '#6994b6', '#9ca3af'];
+export function SeverityChart({ incidents }: { incidents: Incident[] }) {
+  const data = severities
+    .map((name, n) => ({
+      name,
+      value: incidents.filter((i) => i.severity === name).length,
+      color: colors[n],
+    }))
+    .filter((d) => d.value > 0);
+  return (
+    <Card className="chart-card">
+      <div className="panel-title">
+        <h2>Severity distribution</h2>
+        <span>By current assessment</span>
+      </div>
+      {!incidents.length ? (
+        <EmptyState />
+      ) : (
+        <div className="donut-layout">
+          <div className="donut-chart">
+            <ResponsiveContainer width="100%" height={190}>
+              <PieChart>
+                <Pie
+                  isAnimationActive={false}
+                  data={data}
+                  dataKey="value"
+                  innerRadius={61}
+                  outerRadius={79}
+                  paddingAngle={5}
+                  stroke="none"
+                >
+                  {data.map((d) => (
+                    <Cell key={d.name} fill={d.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="donut-center">
+              <strong>{incidents.length}</strong>
+              <span>Total incidents</span>
+            </div>
+          </div>
+          <div className="chart-legend">
+            {data.map((d) => (
+              <div key={d.name}>
+                <span>
+                  <i style={{ background: d.color }} />
+                  {d.name}
+                </span>
+                <strong>{d.value}</strong>
+                <small>{Math.round((d.value / incidents.length) * 100)}%</small>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </Card>
+  );
+}
+export function CategoryChart({ incidents }: { incidents: Incident[] }) {
+  const data = categories
+    .map((name) => ({ name, value: incidents.filter((i) => i.category === name).length }))
+    .filter((d) => d.value > 0)
+    .sort((a, b) => b.value - a.value);
+  return (
+    <Card className="chart-card">
+      <div className="panel-title">
+        <h2>Incidents by category</h2>
+        <span>{data.length} categories</span>
+      </div>
+      {!incidents.length ? (
+        <EmptyState />
+      ) : (
+        <ResponsiveContainer width="100%" height={206}>
+          <BarChart
+            data={data.slice(0, 5)}
+            layout="vertical"
+            margin={{ left: 8, right: 25, top: 8 }}
+          >
+            <CartesianGrid horizontal={false} stroke="var(--border)" strokeDasharray="3 3" />
+            <XAxis
+              type="number"
+              allowDecimals={false}
+              tick={{ fill: 'var(--muted)', fontSize: 11 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              dataKey="name"
+              type="category"
+              width={93}
+              tick={{ fill: 'var(--muted)', fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              contentStyle={{
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: 8,
+              }}
+            />
+            <Bar
+              isAnimationActive={false}
+              dataKey="value"
+              name="Incidents"
+              fill="#6d90b0"
+              radius={[0, 4, 4, 0]}
+              barSize={14}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
+    </Card>
+  );
+}
+export function TrendChart({ incidents }: { incidents: Incident[] }) {
+  const buckets = new Map<string, number>();
+  incidents.forEach((i) => {
+    const day = i.firstDetectedAt.slice(0, 10);
+    buckets.set(day, (buckets.get(day) || 0) + 1);
+  });
+  const data = [...buckets]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, incidents]) => ({ date: date.slice(5), incidents }));
+  return (
+    <Card className="chart-card">
+      <div className="panel-title">
+        <h2>Incident detection trend</h2>
+        <span>Illustrative records · by first detection</span>
+      </div>
+      {!data.length ? (
+        <EmptyState />
+      ) : (
+        <ResponsiveContainer width="100%" height={250}>
+          <AreaChart data={data} margin={{ left: -15, right: 15, top: 15 }}>
+            <defs>
+              <linearGradient id="trend-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#7394b7" stopOpacity={0.25} />
+                <stop offset="100%" stopColor="#7394b7" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="3 3" />
+            <XAxis
+              dataKey="date"
+              tick={{ fill: 'var(--muted)', fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              allowDecimals={false}
+              tick={{ fill: 'var(--muted)', fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              contentStyle={{
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: 8,
+              }}
+            />
+            <Area
+              isAnimationActive={false}
+              type="monotone"
+              dataKey="incidents"
+              stroke="#567a9f"
+              strokeWidth={2}
+              fill="url(#trend-fill)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      )}
+    </Card>
+  );
+}
+export function DistributionChart({
+  title,
+  data,
+}: {
+  title: string;
+  data: { name: string; value: number }[];
+}) {
+  return (
+    <Card className="chart-card">
+      <div className="panel-title">
+        <h2>{title}</h2>
+        <span>Filtered demo records</span>
+      </div>
+      {!data.length ? (
+        <EmptyState />
+      ) : (
+        <ResponsiveContainer width="100%" height={230}>
+          <BarChart data={data} margin={{ left: -20, right: 16, bottom: 20 }}>
+            <CartesianGrid vertical={false} stroke="var(--border)" />
+            <XAxis
+              dataKey="name"
+              tick={{ fill: 'var(--muted)', fontSize: 11 }}
+              interval={0}
+              angle={-15}
+              textAnchor="end"
+            />
+            <YAxis allowDecimals={false} tick={{ fill: 'var(--muted)', fontSize: 11 }} />
+            <Tooltip
+              contentStyle={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+            />
+            <Bar isAnimationActive={false} dataKey="value" fill="#809ab5" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
+    </Card>
+  );
+}
