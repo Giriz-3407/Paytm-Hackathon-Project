@@ -1,4 +1,40 @@
 /* Keep primary content readable in a dense operational workspace. */
+.desktop-sidebar-toggle {
+  display: inline-flex;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .app-shell:not(.sidebar-collapsed) .sidebar {
+    width: 224px;
+    padding: 28px 15px 0;
+  }
+  .app-shell:not(.sidebar-collapsed) .sidebar .brand-name {
+    display: block;
+  }
+  .app-shell:not(.sidebar-collapsed) .sidebar .workspace-switch {
+    display: flex;
+  }
+  .app-shell:not(.sidebar-collapsed) .sidebar .nav-label {
+    display: block;
+  }
+  .app-shell:not(.sidebar-collapsed) .sidebar .nav-item > span {
+    display: initial;
+  }
+  .app-shell:not(.sidebar-collapsed) .sidebar .nav-item {
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+  .app-shell:not(.sidebar-collapsed) .sidebar nav {
+    margin-top: 0;
+  }
+  .app-shell:not(.sidebar-collapsed) .app-body {
+    margin-left: 224px;
+  }
+}
+@media (max-width: 767px) {
+  .desktop-sidebar-toggle {
+    display: none;
+  }
+}
 body {
   font-size: 16px;
 }

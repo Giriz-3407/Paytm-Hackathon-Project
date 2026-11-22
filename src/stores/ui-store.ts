@@ -1,6 +1,7 @@
 'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+export const defaultViews = ['/dashboard', '/map', '/incidents', '/replay'] as const;
 type Preferences = {
   theme: 'light' | 'dark' | 'system';
   collapsed: boolean;
@@ -34,6 +35,18 @@ export const useUI = create<Preferences & { set: (value: Partial<Preferences>) =
       replayAlerts: true,
       set: (value) => set(value),
     }),
-    { name: 'crisis-lens-preferences' },
+    {
+      name: 'crisis-lens-preferences',
+      version: 1,
+      migrate: (stored) => {
+        const prefs = (stored && typeof stored === 'object' ? stored : {}) as Partial<Preferences>;
+        return {
+          ...prefs,
+          defaultView: defaultViews.some((view) => view === prefs.defaultView)
+            ? prefs.defaultView
+            : '/dashboard',
+        };
+      },
+    },
   ),
 );

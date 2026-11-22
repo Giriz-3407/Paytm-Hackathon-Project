@@ -5,12 +5,9 @@ import { useEffect, useState } from 'react';
 import {
   Activity,
   LayoutDashboard,
-  Radio,
   Map,
   Layers3,
   History,
-  ChartNoAxesCombined,
-  FileText,
   Database,
   Settings,
   CircleHelp,
@@ -34,12 +31,9 @@ import { dataMode } from '@/services/repositories';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 const nav = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
-  { href: '/monitoring', label: 'Live Monitoring', icon: Radio },
   { href: '/map', label: 'Crisis Map', icon: Map },
   { href: '/incidents', label: 'Incidents', icon: Layers3 },
   { href: '/replay', label: 'Historical Replay', icon: History },
-  { href: '/analytics', label: 'Analytics', icon: ChartNoAxesCombined },
-  { href: '/reports', label: 'Intelligence Reports', icon: FileText },
   { href: '/sources', label: 'Data Sources', icon: Database },
   { href: '/settings', label: 'Settings', icon: Settings },
   { href: '/help', label: 'Help & About', icon: CircleHelp },
@@ -67,7 +61,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const active = nav.find((n) => path.startsWith(n.href));
   const sidebar = (
     <>
-      <Link href="/dashboard" className="brand" aria-label="Crisis Lens overview">
+      <Link
+        href="/dashboard"
+        className="brand"
+        aria-label="Crisis Lens overview"
+        onClick={() => {
+          setMobile(false);
+          set({ collapsed: true });
+        }}
+      >
         <span className="brand-mark">
           <Activity size={23} strokeWidth={2.2} />
         </span>
@@ -119,19 +121,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </DropdownMenu.Root>
       <div className="nav-label">WORKSPACE</div>
       <nav aria-label="Main navigation">
-        {nav.map((n, index) => (
+        {nav.map((n) => (
           <div key={n.href}>
-            {index === 7 && <div className="nav-label nav-secondary">MANAGE</div>}
+            {n.href === '/sources' && <div className="nav-label nav-secondary">MANAGE</div>}
             <Link
               title={collapsed ? n.label : undefined}
               className={cn('nav-item', path.startsWith(n.href) && 'active')}
               href={n.href}
-              onClick={() => setMobile(false)}
+              onClick={() => {
+                setMobile(false);
+                if (n.href === '/dashboard') set({ collapsed: true });
+              }}
               aria-current={path.startsWith(n.href) ? 'page' : undefined}
             >
               <n.icon size={18} />
               <span>{n.label}</span>
-              {n.href === '/monitoring' && <span className="nav-live" />}
               {n.href === '/incidents' && <span className="nav-count">{data.length}</span>}
             </Link>
           </div>
@@ -167,11 +171,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <aside className="sidebar">
+      <aside
+        id="workspace-sidebar"
+        className="sidebar"
+        onClickCapture={() => {
+          if (collapsed) set({ collapsed: false });
+        }}
+      >
         {sidebar}
         <button
           className="collapse-button"
           aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          aria-expanded={!collapsed}
+          aria-controls="workspace-sidebar"
           onClick={() => set({ collapsed: !collapsed })}
         >
           {collapsed ? <PanelLeftOpen size={15} /> : <PanelLeftClose size={15} />}
@@ -183,6 +195,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="app-body">
         <header className="topbar">
           <div className="topbar-left">
+            <Button
+              className="desktop-sidebar-toggle"
+              size="icon"
+              variant="ghost"
+              aria-label={collapsed ? 'Open sidebar' : 'Close sidebar'}
+              aria-expanded={!collapsed}
+              aria-controls="workspace-sidebar"
+              onClick={() => set({ collapsed: !collapsed })}
+            >
+              <Menu size={20} />
+            </Button>
             <Button
               className="mobile-menu"
               size="icon"
@@ -226,7 +249,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span className="avatar topbar-avatar">AK</span>
           </div>
         </header>
-        <main id="main-content">{children}</main>
+        <main
+          id="main-content"
+          onClickCapture={() => {
+            if (!collapsed && window.matchMedia('(min-width: 768px)').matches)
+              set({ collapsed: true });
+          }}
+        >
+          {children}
+        </main>
         <footer className="app-footer">
           <span>
             <Shield size={12} /> Situational awareness. Follow official emergency guidance.

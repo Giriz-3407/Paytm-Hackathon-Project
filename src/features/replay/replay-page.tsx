@@ -34,7 +34,6 @@ import { IncidentCard } from '@/components/shared/incidents';
 import { EmptyState, ErrorState, LoadingState } from '@/components/shared/feedback';
 import { useDateFormatter } from '@/hooks/use-date-formatter';
 import { useUI } from '@/stores/ui-store';
-import { useReplaySnapshot } from '@/stores/replay-snapshot';
 export function ReplayPage() {
   const q = useScenarios();
   const [id, setId] = useState('mumbai-2005');
@@ -140,13 +139,6 @@ function ReplaySession({ scenario: s }: { scenario: ReplayScenario }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const replayAlerts = useUI((v) => v.replayAlerts);
   const state = useMemo(() => reconstruct(s.events, time), [s.events, time]);
-  // Snapshot updates only when the eligible event boundary changes, not on clock ticks.
-  const boundary = state.released.at(-1)?.availableAt || s.startTime;
-  useEffect(() => {
-    useReplaySnapshot
-      .getState()
-      .setSnapshot(reconstruct(s.events, Date.parse(boundary)).incidents, s.title, boundary);
-  }, [boundary, s]);
   const sync = () => {
     setTime(clock.time);
     setStatus(clock.status);

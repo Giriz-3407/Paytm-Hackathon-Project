@@ -866,7 +866,7 @@ input[type='checkbox'] {
 .sidebar-collapsed .profile {
   justify-content: center;
 }
-.sidebar-collapsed .sidebar nav > div:nth-child(8) {
+.sidebar-collapsed .sidebar nav > div:nth-child(5) {
   margin-top: 26px;
 }
 .overview-toolbar {
@@ -2825,7 +2825,7 @@ td.title-cell a:hover {
   .sidebar .nav-item.active:before {
     left: -11px;
   }
-  .sidebar nav > div:nth-child(8) {
+  .sidebar nav > div:nth-child(5) {
     margin-top: 24px;
   }
   .app-body {

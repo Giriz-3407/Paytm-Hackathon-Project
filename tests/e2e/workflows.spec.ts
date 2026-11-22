@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('exports filtered CSV, generates a report, and opens related reports', async ({ page }) => {
+test('exports filtered CSV and opens incident history', async ({ page }) => {
   await page.goto('/incidents');
   await page.getByLabel('Search incidents', { exact: true }).fill('Guwahati');
   await expect(
@@ -16,16 +16,8 @@ test('exports filtered CSV, generates a report, and opens related reports', asyn
   expect(csv).toContain('CL-2401');
   expect(csv).not.toContain('CL-2402');
   await page.getByRole('link', { name: 'River levels rise along the Brahmaputra' }).click();
-  await page.getByRole('button', { name: 'Generate demo report', exact: true }).click();
   await page.getByRole('tab', { name: 'History', exact: true }).click();
-  await page.getByRole('link', { name: 'View related intelligence reports' }).click();
-  await expect(page.getByLabel('Report incident')).toHaveValue('CL-2401');
-  await expect(page.locator('.report-card')).toHaveCount(2);
-  await page.getByRole('button', { name: 'Read report' }).first().click();
-  await expect(
-    page.getByRole('dialog').getByRole('heading', { name: 'Executive summary' }),
-  ).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Print / Save PDF' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Record history' })).toBeVisible();
 });
 
 test('source toggles update dashboard metrics and survive simulated refresh', async ({ page }) => {
@@ -48,7 +40,7 @@ test('source toggles update dashboard metrics and survive simulated refresh', as
   ).toHaveText('03');
 });
 
-test('saved monitoring defaults filter the live feed', async ({ page }) => {
+test('saved monitoring defaults filter incidents', async ({ page }) => {
   await page.goto('/settings');
   await page.getByRole('button', { name: 'Workspace menu' }).click();
   await page.getByRole('menuitem', { name: 'Workspace preferences' }).click();
@@ -56,26 +48,15 @@ test('saved monitoring defaults filter the live feed', async ({ page }) => {
   await page.getByLabel('Preferred crisis category', { exact: true }).selectOption('Flood');
   await page.getByLabel('Default severity filter', { exact: true }).selectOption('Critical');
   await page.getByRole('button', { name: 'Save monitoring defaults' }).click();
-  await page.getByRole('navigation').getByRole('link', { name: 'Live Monitoring' }).click();
+  await page.getByRole('navigation').getByRole('link', { name: 'Incidents', exact: true }).click();
   await expect(page.getByLabel('Category', { exact: true })).toHaveValue('Flood');
   await expect(page.getByLabel('Severity', { exact: true })).toHaveValue('Critical');
-  await expect(page.locator('.monitoring-feed .incident-card')).toHaveCount(1);
+  await expect(page.locator('tbody tr')).toHaveCount(1);
 });
 
 test('every main route fits a 375px viewport', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const route of [
-    'dashboard',
-    'monitoring',
-    'map',
-    'incidents',
-    'replay',
-    'analytics',
-    'reports',
-    'sources',
-    'settings',
-    'help',
-  ]) {
+  for (const route of ['dashboard', 'map', 'incidents', 'replay', 'sources', 'settings', 'help']) {
     await page.goto('/' + route);
     await expect(page.locator('h1')).toBeVisible();
     await expect(page.getByRole('status', { name: 'Loading data' })).toHaveCount(0);

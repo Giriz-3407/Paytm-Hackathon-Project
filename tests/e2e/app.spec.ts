@@ -1,15 +1,32 @@
 import { test, expect } from '@playwright/test';
+
+test('sidebar opens from the menu or rail and closes on dashboard interaction', async ({
+  page,
+}) => {
+  await page.goto('/dashboard');
+  await expect(page.getByRole('heading', { name: 'Crisis overview', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Close sidebar', exact: true }).click();
+  await expect(page.locator('.app-shell')).toHaveClass(/sidebar-collapsed/);
+  await page.getByRole('button', { name: 'Open sidebar', exact: true }).click();
+  await expect(page.locator('.app-shell')).not.toHaveClass(/sidebar-collapsed/);
+  await page.getByRole('heading', { name: 'Crisis overview', exact: true }).click();
+  await expect(page.locator('.app-shell')).toHaveClass(/sidebar-collapsed/);
+  await page.locator('.sidebar').click({ position: { x: 68, y: 200 } });
+  await expect(page.locator('.app-shell')).not.toHaveClass(/sidebar-collapsed/);
+  await page.getByRole('navigation').getByRole('link', { name: 'Crisis Map', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Crisis map', exact: true })).toBeVisible();
+  await expect(page.locator('.app-shell')).not.toHaveClass(/sidebar-collapsed/);
+  await page.getByRole('navigation').getByRole('link', { name: 'Overview', exact: true }).click();
+  await expect(page.locator('.app-shell')).toHaveClass(/sidebar-collapsed/);
+});
 test('all routes render without application errors', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   for (const [route, title] of [
     ['dashboard', 'Crisis overview'],
-    ['monitoring', 'Live monitoring'],
     ['map', 'Crisis map'],
     ['incidents', 'Incident management'],
     ['replay', 'Historical replay'],
-    ['analytics', 'Crisis analytics'],
-    ['reports', 'Intelligence reports'],
     ['sources', 'Data sources'],
     ['settings', 'Settings'],
     ['help', 'Help & about'],
@@ -18,6 +35,25 @@ test('all routes render without application errors', async ({ page }) => {
     await expect(page.getByRole('heading', { name: title, exact: true, level: 1 })).toBeVisible();
   }
   expect(errors).toEqual([]);
+  for (const route of ['/monitoring', '/analytics', '/reports']) {
+    await expect(page.locator(`nav a[href="${route}"]`)).toHaveCount(0);
+    const response = await page.goto(route);
+    expect(response?.status()).toBe(404);
+    await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
+  }
+});
+
+test('removed saved default views fall back to overview', async ({ page }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      'crisis-lens-preferences',
+      JSON.stringify({ state: { defaultView: '/monitoring', theme: 'dark' }, version: 0 }),
+    ),
+  );
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await expect(page.getByRole('heading', { name: 'Crisis overview', exact: true })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 test('filters incidents, opens details, and changes dashboard map tabs', async ({ page }) => {
   await page.goto('/incidents');
@@ -62,10 +98,6 @@ test('replay releases events, pauses, resumes, changes speed, and removes future
   await page.screenshot({ path: 'test-results/replay-desktop.png', fullPage: true });
   await expect(page.getByText('0 released', { exact: true })).toBeVisible();
   await expect(page.locator('.replay-feed .incident-card')).toHaveCount(1);
-  await page.getByRole('navigation').getByRole('link', { name: 'Analytics', exact: true }).click();
-  await page.getByLabel('Analytics monitoring mode').selectOption('replay');
-  await expect(page.getByText(/eligible knowledge only · 1 incidents/)).toBeVisible();
-  await expect(page.locator('.donut-center strong')).toHaveText('1');
 });
 test('theme persists and mobile navigation works without overflow', async ({ page }) => {
   await page.goto('/dashboard');

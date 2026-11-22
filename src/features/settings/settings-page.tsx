@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Sun, Moon, Monitor, Save, Shield, Check, Info } from 'lucide-react';
 import { toast } from 'sonner';
-import { useUI } from '@/stores/ui-store';
+import { useUI, defaultViews } from '@/stores/ui-store';
 import { dateLabel } from '@/lib/utils';
 import { PageHeader } from '@/components/shared/page-header';
 import {
@@ -23,7 +23,7 @@ import {
 import { categories, severities } from '@/types/domain';
 const schema = z.object({
   timezone: z.enum(['Asia/Kolkata', 'UTC', 'Europe/London', 'America/New_York']),
-  defaultView: z.enum(['/dashboard', '/monitoring', '/map', '/replay']),
+  defaultView: z.enum(defaultViews),
   dateFormat: z.enum(['dd MMM yyyy', 'yyyy-MM-dd', 'MM/dd/yyyy']),
 });
 type GeneralValues = z.infer<typeof schema>;
@@ -72,7 +72,7 @@ export function SettingsPage() {
                 Default dashboard view
                 <select className="input select" {...form.register('defaultView')}>
                   <option value="/dashboard">Overview</option>
-                  <option value="/monitoring">Live Monitoring</option>
+                  <option value="/incidents">Incidents</option>
                   <option value="/map">Crisis Map</option>
                   <option value="/replay">Historical Replay</option>
                 </select>
@@ -100,8 +100,8 @@ export function SettingsPage() {
                 </p>
               ))}
               <p className="muted">
-                Incident, evidence, source, and report dates use these display preferences. The
-                replay clock stays explicitly in IST so its historical context remains clear.
+                Incident, evidence, and source dates use these display preferences. The replay clock
+                stays explicitly in IST so its historical context remains clear.
               </p>
               <div className="notice">
                 <Info size={15} />
@@ -206,7 +206,7 @@ export function SettingsPage() {
               <Button
                 variant="default"
                 onClick={() => {
-                  toast.success('Monitoring defaults saved. Open Live Monitoring to use them.');
+                  toast.success('Monitoring defaults saved. Open Incidents to use them.');
                 }}
               >
                 Save monitoring defaults
@@ -267,8 +267,8 @@ export function SettingsPage() {
             <Shield size={26} />
             <h2>Data & privacy</h2>
             <p>
-              Safe preferences and locally generated demo reports are stored in your browser. No API
-              keys, authentication credentials, or sensitive reports should be stored here.
+              Safe preferences are stored in your browser. No API keys, authentication credentials,
+              or sensitive information should be stored here.
             </p>
             <p>
               The map requests OpenStreetMap tiles from a third-party provider. Opening a provider

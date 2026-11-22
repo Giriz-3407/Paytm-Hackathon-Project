@@ -1,8 +1,6 @@
 'use client';
 import {
   ResponsiveContainer,
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -132,108 +130,6 @@ export function CategoryChart({ incidents }: { incidents: Incident[] }) {
               fill="var(--primary)"
               radius={[0, 4, 4, 0]}
               barSize={14}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      )}
-    </Card>
-  );
-}
-export function TrendChart({ incidents }: { incidents: Incident[] }) {
-  const buckets = new Map<string, number>();
-  incidents.forEach((i) => {
-    const day = i.firstDetectedAt.slice(0, 10);
-    buckets.set(day, (buckets.get(day) || 0) + 1);
-  });
-  const data = [...buckets]
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, incidents]) => ({ date: date.slice(5), incidents }));
-  return (
-    <Card className="chart-card">
-      <div className="panel-title">
-        <h2>Incident detection trend</h2>
-        <span>Illustrative records · by first detection</span>
-      </div>
-      {!data.length ? (
-        <EmptyState />
-      ) : (
-        <ResponsiveContainer width="100%" height={250}>
-          <AreaChart data={data} margin={{ left: -15, right: 15, top: 15 }}>
-            <defs>
-              <linearGradient id="trend-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--cyan)" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="var(--cyan)" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="3 3" />
-            <XAxis
-              dataKey="date"
-              tick={{ fill: 'var(--muted)', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <YAxis
-              allowDecimals={false}
-              tick={{ fill: 'var(--muted)', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <Tooltip
-              contentStyle={{
-                background: 'var(--surface)',
-                border: '1px solid var(--border)',
-                borderRadius: 8,
-              }}
-            />
-            <Area
-              isAnimationActive={false}
-              type="monotone"
-              dataKey="incidents"
-              stroke="var(--cyan)"
-              strokeWidth={2}
-              fill="url(#trend-fill)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      )}
-    </Card>
-  );
-}
-export function DistributionChart({
-  title,
-  data,
-}: {
-  title: string;
-  data: { name: string; value: number }[];
-}) {
-  return (
-    <Card className="chart-card">
-      <div className="panel-title">
-        <h2>{title}</h2>
-        <span>Filtered demo records</span>
-      </div>
-      {!data.length ? (
-        <EmptyState />
-      ) : (
-        <ResponsiveContainer width="100%" height={230}>
-          <BarChart data={data} margin={{ left: -20, right: 16, bottom: 20 }}>
-            <CartesianGrid vertical={false} stroke="var(--border)" />
-            <XAxis
-              dataKey="name"
-              tick={{ fill: 'var(--muted)', fontSize: 11 }}
-              interval={0}
-              angle={-15}
-              textAnchor="end"
-            />
-            <YAxis allowDecimals={false} tick={{ fill: 'var(--muted)', fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
-            />
-            <Bar
-              isAnimationActive={false}
-              dataKey="value"
-              fill="var(--primary)"
-              radius={[4, 4, 0, 0]}
             />
           </BarChart>
         </ResponsiveContainer>

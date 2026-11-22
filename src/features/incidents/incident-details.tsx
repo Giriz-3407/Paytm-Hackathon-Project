@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import { MapPin, Clock3, FileText, ShieldCheck, Info, ExternalLink } from 'lucide-react';
+import { MapPin, Clock3, ShieldCheck, Info, ExternalLink } from 'lucide-react';
 import { Incident } from '@/types/domain';
 import { useEvidence, useIncidents } from '@/services/hooks';
 import {
@@ -18,8 +18,6 @@ import { PageHeader } from '@/components/shared/page-header';
 import { LoadingState, ErrorState, EmptyState } from '@/components/shared/feedback';
 import { CrisisMap } from '@/features/crisis-map/crisis-map';
 import { useDateFormatter } from '@/hooks/use-date-formatter';
-import { useGeneratedReports } from '@/features/reports/report-store';
-import { toast } from 'sonner';
 export function IncidentDetails({
   incident: i,
   compact = false,
@@ -30,11 +28,6 @@ export function IncidentDetails({
   const dateLabel = useDateFormatter();
   const q = useEvidence(i.id);
   const [tab, setTab] = useState('overview');
-  const generate = useGeneratedReports((s) => s.generate);
-  const report = () => {
-    const r = generate(i);
-    toast.success(`Demo report ${r.id} generated. Open Intelligence Reports to view.`);
-  };
   return (
     <div className="incident-details">
       <div className="detail-heading">
@@ -52,10 +45,6 @@ export function IncidentDetails({
           <MapPin size={14} />
           {i.location.city}, {i.location.state}
         </p>
-        <Button onClick={report}>
-          <FileText size={15} />
-          Generate demo report
-        </Button>
       </div>
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
@@ -214,9 +203,6 @@ export function IncidentDetails({
                 </p>
               </div>
             </div>
-            <Link className="text-link" href={`/reports?incident=${i.id}`}>
-              View related intelligence reports
-            </Link>
           </div>
         </TabsContent>
       </Tabs>

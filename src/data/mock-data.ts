@@ -1,4 +1,4 @@
-import { Evidence, Incident, IntelligenceReport, Source } from '@/types/domain';
+import { Evidence, Incident, Source } from '@/types/domain';
 // Frozen reference time keeps all screenshots, filters, and tests reproducible.
 export const DEMO_NOW = '2026-11-22T06:30:00.000Z';
 const places: [string, string, number, number][] = [
@@ -173,20 +173,3 @@ export const mockEvidence: Evidence[] = mockIncidents.flatMap((i) =>
     verificationStatus: i.evidenceStatus,
   })),
 );
-export const mockReports: IntelligenceReport[] = mockIncidents.slice(0, 4).map((i, n) => ({
-  id: `RPT-${1001 + n}`,
-  incidentId: i.id,
-  title: `${i.location.city}: ${i.category.toLowerCase()} situation brief`,
-  generatedAt: i.lastUpdatedAt,
-  mode: 'demo',
-  summary: i.summary,
-  findings: [
-    `Sample evidence places the general situation in ${i.location.city}, ${i.location.state}.`,
-    `Current illustrative assessment: ${i.severity} severity; ${i.evidenceStatus.toLowerCase()} evidence.`,
-  ],
-  limitations: [
-    'Fictional training data; not operational intelligence.',
-    'No verified impact estimates or official response recommendations.',
-  ],
-  sources: i.relatedEvidenceIds,
-}));

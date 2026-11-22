@@ -12,6 +12,11 @@ import { useDateFormatter } from '@/hooks/use-date-formatter';
 function Reset({ value }: { value: number }) {
   const map = useMap();
   useEffect(() => {
+    const observer = new ResizeObserver(() => map.invalidateSize({ pan: false }));
+    observer.observe(map.getContainer());
+    return () => observer.disconnect();
+  }, [map]);
+  useEffect(() => {
     map.fitBounds(
       [
         [6, 67],

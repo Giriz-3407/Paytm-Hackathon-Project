@@ -21,7 +21,7 @@ import { useIncidents, useSources } from '@/services/hooks';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button, Card, Badge, Select, Input, Tooltip } from '@/components/ui/primitives';
 import { CrisisMap } from '@/features/crisis-map/crisis-map';
-import { SeverityChart, CategoryChart } from '@/features/analytics/charts';
+import { SeverityChart, CategoryChart } from './charts';
 import { CompactIncident } from '@/components/shared/incidents';
 import { LoadingState, ErrorState, EmptyState } from '@/components/shared/feedback';
 import { filterIncidents, rangeStart } from '@/features/incidents/filter';
@@ -262,7 +262,7 @@ export function Dashboard() {
                   <EmptyState />
                 )}
               </div>
-              <Link className="panel-bottom-link" href="/monitoring">
+              <Link className="panel-bottom-link" href="/incidents">
                 View incident feed
                 <ChevronRight size={14} />
               </Link>

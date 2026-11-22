@@ -1,12 +1,5 @@
-import {
-  Evidence,
-  Incident,
-  IncidentFilters,
-  IntelligenceReport,
-  ReplayScenario,
-  Source,
-} from '@/types/domain';
-import { mockEvidence, mockIncidents, mockReports, mockSources } from '@/data/mock-data';
+import { Evidence, Incident, IncidentFilters, ReplayScenario, Source } from '@/types/domain';
+import { mockEvidence, mockIncidents, mockSources } from '@/data/mock-data';
 import { replayScenarios } from '@/data/replay-scenarios';
 import { filterIncidents } from '@/features/incidents/filter';
 export interface IncidentRepository {
@@ -17,10 +10,6 @@ export interface IncidentRepository {
 export interface ReplayRepository {
   listScenarios(): Promise<ReplayScenario[]>;
   getScenario(id: string): Promise<ReplayScenario | null>;
-}
-export interface ReportRepository {
-  list(): Promise<IntelligenceReport[]>;
-  getById(id: string): Promise<IntelligenceReport | null>;
 }
 const demo = async <T>(data: T): Promise<T> => {
   await new Promise((r) => setTimeout(r, 250));
@@ -54,16 +43,6 @@ export const replayRepository: ReplayRepository =
     : {
         listScenarios: () => demo(replayScenarios),
         getScenario: (id) => demo(replayScenarios.find((s) => s.id === id) || null),
-      };
-export const reportsRepository: ReportRepository =
-  dataMode === 'api'
-    ? {
-        list: () => request('/reports'),
-        getById: (id) => request(`/reports/${encodeURIComponent(id)}`),
-      }
-    : {
-        list: () => demo(mockReports),
-        getById: (id) => demo(mockReports.find((r) => r.id === id) || null),
       };
 const sourceOverrides = new Map<string, boolean>();
 export const sourcesRepository = {

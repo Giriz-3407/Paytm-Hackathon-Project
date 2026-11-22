@@ -68,10 +68,6 @@ export function HelpPage() {
           verified impact claims are invented.
         </p>
         <p>
-          <strong>Report generation:</strong> local templates derived from demo records, with
-          explicit limitations. Browser print supports PDF export.
-        </p>
-        <p>
           <strong>Timestamp semantics:</strong> publication is when a source says it was published;
           availability is when the system can use it; ingestion is when processing records it. The
           replay gates on availability.

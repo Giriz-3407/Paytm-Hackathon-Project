@@ -66,17 +66,6 @@ export interface Source {
   reports: number;
   error: string | null;
 }
-export interface IntelligenceReport {
-  id: string;
-  incidentId: string;
-  title: string;
-  generatedAt: string;
-  mode: Mode;
-  summary: string;
-  findings: string[];
-  limitations: string[];
-  sources: string[];
-}
 export interface ReplayReport extends Evidence {
   category: Category;
   location: Incident['location'];
