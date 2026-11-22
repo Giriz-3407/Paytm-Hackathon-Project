@@ -16,7 +16,13 @@ import {
 import { Incident, severities, categories } from '@/types/domain';
 import { Card } from '@/components/ui/primitives';
 import { EmptyState } from '@/components/shared/feedback';
-const colors = ['#dc5b58', '#eb9951', '#e6bc56', '#6994b6', '#9ca3af'];
+const colors = [
+  'var(--severity-critical)',
+  'var(--severity-high)',
+  'var(--severity-medium)',
+  'var(--severity-low)',
+  'var(--severity-unknown)',
+];
 export function SeverityChart({ incidents }: { incidents: Incident[] }) {
   const data = severities
     .map((name, n) => ({
@@ -123,7 +129,7 @@ export function CategoryChart({ incidents }: { incidents: Incident[] }) {
               isAnimationActive={false}
               dataKey="value"
               name="Incidents"
-              fill="#6d90b0"
+              fill="var(--primary)"
               radius={[0, 4, 4, 0]}
               barSize={14}
             />
@@ -155,8 +161,8 @@ export function TrendChart({ incidents }: { incidents: Incident[] }) {
           <AreaChart data={data} margin={{ left: -15, right: 15, top: 15 }}>
             <defs>
               <linearGradient id="trend-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7394b7" stopOpacity={0.25} />
-                <stop offset="100%" stopColor="#7394b7" stopOpacity={0} />
+                <stop offset="0%" stopColor="var(--cyan)" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="var(--cyan)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="3 3" />
@@ -183,7 +189,7 @@ export function TrendChart({ incidents }: { incidents: Incident[] }) {
               isAnimationActive={false}
               type="monotone"
               dataKey="incidents"
-              stroke="#567a9f"
+              stroke="var(--cyan)"
               strokeWidth={2}
               fill="url(#trend-fill)"
             />
@@ -223,7 +229,12 @@ export function DistributionChart({
             <Tooltip
               contentStyle={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
             />
-            <Bar isAnimationActive={false} dataKey="value" fill="#809ab5" radius={[4, 4, 0, 0]} />
+            <Bar
+              isAnimationActive={false}
+              dataKey="value"
+              fill="var(--primary)"
+              radius={[4, 4, 0, 0]}
+            />
           </BarChart>
         </ResponsiveContainer>
       )}

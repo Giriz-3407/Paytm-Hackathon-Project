@@ -1,0 +1,413 @@
+/* Crisis Lens: midnight navy, signal blue and cyan. Severity stays semantic. */
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+input[type='checkbox'] {
+  accent-color: var(--primary);
+}
+.button-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 3px 9px #2563eb20;
+}
+.button-primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+.button-outline:hover {
+  color: var(--accent);
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.brand-mark {
+  background: #22d3ee;
+  color: #071831;
+}
+.brand-mark:after {
+  border-color: #22d3ee45;
+}
+.brand-name > span {
+  color: #67e8f9;
+}
+.brand-name small {
+  color: #9ab5da;
+}
+.sidebar {
+  color: #b6c9e6;
+  border-right: 1px solid #19335a;
+}
+.sidebar .workspace-switch {
+  background: #102749;
+  border-color: #25446c;
+  color: #eff6ff;
+}
+.sidebar .workspace-avatar {
+  background: #174383;
+  border-color: #3165a8;
+  color: #a5f3fc;
+}
+.sidebar .workspace-switch small {
+  color: #9bb9df;
+}
+.sidebar .nav-label {
+  color: #83a5d3;
+}
+.sidebar .nav-item {
+  color: #b2c9e7;
+}
+.sidebar .nav-item:hover {
+  background: #12315a;
+  color: #fff;
+}
+.sidebar .nav-item.active {
+  background: #2563eb;
+  color: #fff;
+}
+.sidebar .nav-item.active:before {
+  background: #22d3ee;
+}
+.sidebar .nav-item.active > svg {
+  color: #fff;
+}
+.sidebar .nav-item.active .nav-count {
+  background: #ffffff25;
+  color: #fff;
+}
+.sidebar .nav-live {
+  background: #22d3ee;
+}
+.sidebar .nav-count {
+  color: #c2d7f3;
+  background: #17345a;
+  border-color: #254970;
+}
+.sidebar .system-status {
+  background: #0c2544;
+  border-color: #1e4066;
+  color: #d3e6ff;
+}
+.sidebar .system-status small,
+.sidebar .profile small {
+  color: #94b5de;
+}
+.sidebar .system-status > svg {
+  color: #22d3ee;
+}
+.sidebar .profile {
+  color: #e2eeff;
+}
+.sidebar .profile .avatar {
+  color: #fff;
+  background: #1d4ed8;
+  border-color: #3b82f6;
+}
+.avatar,
+.topbar-avatar {
+  background: var(--primary-soft);
+  color: var(--accent);
+  border-color: var(--border);
+}
+.breadcrumb strong {
+  color: var(--accent);
+}
+.topbar {
+  border-bottom-color: var(--border);
+}
+.global-search {
+  background: var(--surface-alt);
+  color: var(--muted);
+}
+.global-search:hover {
+  border-color: var(--primary);
+}
+.notification-button i {
+  background: var(--cyan);
+}
+.page-header h1 {
+  color: var(--foreground);
+}
+.eyebrow {
+  color: var(--cyan);
+}
+.demo-badge {
+  color: var(--accent);
+  background: var(--primary-soft);
+  border-color: var(--border);
+}
+.panel {
+  border-color: var(--border);
+}
+.panel-title h2 > svg {
+  color: var(--accent);
+}
+.metric-card {
+  border-top: 3px solid var(--primary);
+}
+.metric-card:nth-child(2) {
+  border-top-color: var(--severity-critical);
+}
+.metric-card:nth-child(3) {
+  border-top-color: var(--violet);
+}
+.metric-card:nth-child(4) {
+  border-top-color: var(--cyan);
+}
+.metric-card:nth-child(5) {
+  border-top-color: var(--severity-medium);
+}
+.metric-card:nth-child(6) {
+  border-top-color: var(--success);
+}
+.metric-value strong {
+  color: var(--foreground);
+}
+.metric-note,
+.compact-meta,
+.compact-heading > span:first-child,
+.map-panel-footer,
+.map-legend-note,
+.demo-footnote,
+.app-footer,
+.feed-caption {
+  color: var(--muted);
+}
+.metric-icon,
+.metric-icon.blue {
+  color: var(--accent);
+  background: var(--primary-soft);
+}
+.metric-icon.red {
+  color: var(--severity-critical);
+  background: var(--critical-soft);
+}
+.metric-icon.violet {
+  color: var(--violet);
+  background: var(--violet-soft);
+}
+.metric-icon.amber {
+  color: var(--severity-medium);
+  background: var(--medium-soft);
+}
+.metric-icon.green {
+  color: var(--success);
+  background: var(--success-soft);
+}
+.metric-card:nth-child(4) .metric-icon {
+  color: var(--cyan);
+  background: var(--cyan-soft);
+}
+.status-dot {
+  background: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 10%, transparent);
+}
+.status-dot.warning {
+  background: var(--severity-medium);
+  box-shadow: none;
+}
+.monitoring-status strong {
+  color: var(--success);
+}
+.freshness-badge {
+  color: var(--success);
+  background: var(--success-soft);
+  border-color: color-mix(in srgb, var(--success) 22%, var(--surface));
+}
+.severity-critical {
+  color: var(--severity-critical);
+  background: var(--critical-soft);
+  border-color: color-mix(in srgb, var(--severity-critical) 20%, var(--surface));
+}
+.severity-high {
+  color: var(--severity-high);
+  background: var(--high-soft);
+  border-color: color-mix(in srgb, var(--severity-high) 20%, var(--surface));
+}
+.severity-medium {
+  color: var(--severity-medium);
+  background: var(--medium-soft);
+  border-color: color-mix(in srgb, var(--severity-medium) 20%, var(--surface));
+}
+.severity-low {
+  color: var(--severity-low);
+  background: var(--low-soft);
+  border-color: color-mix(in srgb, var(--severity-low) 20%, var(--surface));
+}
+.severity-unknown {
+  color: var(--severity-unknown);
+  background: var(--surface-alt);
+  border-color: var(--border);
+}
+.severity-bg-critical {
+  background: var(--severity-critical);
+}
+.severity-bg-high {
+  background: var(--severity-high);
+}
+.severity-bg-medium {
+  background: var(--severity-medium);
+}
+.severity-bg-low {
+  background: var(--severity-low);
+}
+.severity-bg-unknown {
+  background: var(--severity-unknown);
+}
+.evidence-badge {
+  color: var(--violet);
+}
+.incident-card:hover,
+.incident-card.selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.compact-incident:hover {
+  background: var(--primary-soft);
+}
+.category-label {
+  color: var(--accent);
+}
+.segmented button.active,
+.map-view-switch button.active {
+  color: var(--accent);
+  background: var(--primary-soft);
+}
+.segmented button span {
+  color: var(--accent);
+  background: var(--primary-soft);
+}
+.tabs-trigger[data-state='active'] {
+  color: var(--accent);
+  border-bottom-color: var(--primary);
+}
+.alert-label {
+  color: var(--severity-critical);
+}
+.alert-item > button:hover {
+  color: var(--success);
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+.alerts-note {
+  color: var(--muted);
+}
+.notice {
+  border-color: var(--border);
+  color: var(--muted);
+  background: var(--surface-alt);
+}
+.notice > svg {
+  color: var(--cyan);
+}
+.replay-notice {
+  border-color: color-mix(in srgb, var(--cyan) 24%, var(--surface));
+  background: var(--cyan-soft);
+  color: var(--foreground);
+}
+.report-icon,
+.source-icon,
+.help-icon {
+  color: var(--accent);
+  background: var(--primary-soft);
+  border-color: var(--border);
+}
+.source-health-icon {
+  color: var(--cyan);
+}
+.source-error {
+  color: var(--severity-high);
+  background: var(--high-soft);
+}
+.switch[data-state='checked'] {
+  background: var(--primary);
+}
+.theme-choices > button.active {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+.timeline-item > svg {
+  color: var(--cyan);
+}
+.timeline-track input {
+  accent-color: var(--primary);
+}
+.event-markers button.released {
+  background: var(--primary);
+}
+.leaflet-container,
+[data-theme='dark'] .leaflet-container {
+  background: var(--map-water) !important;
+}
+[data-theme='dark'] .leaflet-geographic-context-pane path {
+  fill: var(--map-land);
+  stroke: var(--map-border);
+}
+.leaflet-control-zoom {
+  border-color: var(--border) !important;
+}
+.leaflet-control-zoom a {
+  background: var(--surface) !important;
+  color: var(--accent) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--surface);
+  color: var(--foreground);
+}
+.map-popup {
+  color: var(--foreground);
+}
+.map-popup a {
+  color: var(--accent) !important;
+}
+.marker-cluster-small,
+.marker-cluster-small div {
+  background: #2563eb24 !important;
+  color: var(--accent);
+}
+.marker-cluster-medium,
+.marker-cluster-medium div {
+  background: #0891b23d !important;
+  color: var(--cyan);
+}
+.mobile-sidebar .nav-item.active {
+  color: var(--accent);
+  background: var(--primary-soft);
+}
+.mobile-sidebar .workspace-avatar {
+  color: #fff;
+  background: #2563eb;
+}
+.tooltip {
+  background: #102b53;
+  color: #eff6ff;
+}
+@media print {
+  .metric-card {
+    border-top: 1px solid #ccc;
+  }
+}
+.severity-critical {
+  color: var(--critical-ink);
+}
+.severity-high {
+  color: var(--high-ink);
+}
+.severity-medium {
+  color: var(--medium-ink);
+}
+.severity-low {
+  color: var(--low-ink);
+}
+[data-theme='dark'] .button-primary {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+[data-theme='dark'] .button-primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+[data-theme='dark'] .leaflet-geographic-context-pane .map-country-india {
+  fill: var(--map-india);
+}

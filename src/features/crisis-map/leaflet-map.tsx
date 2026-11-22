@@ -52,9 +52,11 @@ export default function LeafletMap({
             interactive={false}
             attribution='Outlines: <a href="https://www.naturalearthdata.com">Natural Earth</a>'
             style={(feature) => ({
-              color: '#bcc9d4',
+              color: 'var(--map-border)',
+              className: feature?.properties.name === 'India' ? 'map-country-india' : 'map-country',
               weight: 1,
-              fillColor: feature?.properties.name === 'India' ? '#f8fafc' : '#e6ecf0',
+              fillColor:
+                feature?.properties.name === 'India' ? 'var(--map-india)' : 'var(--map-land)',
               fillOpacity: 1,
             })}
           />

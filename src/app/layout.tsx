@@ -5,6 +5,7 @@ import 'react-leaflet-cluster/dist/assets/MarkerCluster.css';
 import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 import './globals.css';
 import './readability.css';
+import './theme.css';
 import { AppProviders } from '@/providers/app-providers';
 import { AppShell } from '@/components/layout/app-shell';
 export const metadata: Metadata = {
